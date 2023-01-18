@@ -7,7 +7,7 @@ package ejerciciosTiposDeDatosBásicos;
  * @author Sandra
  *
  */
-public class Ejercicio2 {
+public class Ejercicio02 {
 
 	public static void main(String[] args) {
 		/*

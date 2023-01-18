@@ -7,7 +7,7 @@ package ejerciciosTiposDeDatosBásicos;
  * @author Sandra
  *
  */
-public class Ejercicio1 {
+public class Ejercicio01 {
 	
 	public static void main(String[] args) {
 		//Crea un programa que diga el resultado de sumar 36 y 27.

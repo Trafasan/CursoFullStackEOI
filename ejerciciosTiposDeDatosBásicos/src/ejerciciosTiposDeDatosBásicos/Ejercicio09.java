@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Sandra
  *
  */
-public class Ejercicio9 {
+public class Ejercicio09 {
 
 	public static void main(String[] args) {
 		// Pregúntale al usuario su nombre y muestra un mensaje saludándole con su nombre.

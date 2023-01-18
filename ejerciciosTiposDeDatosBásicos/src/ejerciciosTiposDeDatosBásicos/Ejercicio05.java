@@ -7,7 +7,7 @@ package ejerciciosTiposDeDatosBásicos;
  * @author Sandra
  *
  */
-public class Ejercicio5 {
+public class Ejercicio05 {
 
 	public static void main(String[] args) {
 		/*
@@ -22,12 +22,14 @@ public class Ejercicio5 {
 		 * N * 2 = 150
 		 */
 		
-		int N = 13, suma = N + 77, resta = suma - 3, mult = resta*2;
-		
+		int N = 1;
 		System.out.println("Valor inicial de N = "+N);
-		System.out.println(N+" + 77 = "+suma);
-		System.out.println(suma+" -3 = "+resta);
-		System.out.println(resta+" · 2 = "+mult);
+		N += 77;
+		System.out.println("N + 77 = "+N);
+		N -= 3;
+		System.out.println("N - 3 = "+N);
+		N *= 2;
+		System.out.println("N · 2 = "+N);
 	}
 
 }

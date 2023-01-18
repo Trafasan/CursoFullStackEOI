@@ -7,7 +7,7 @@ package ejerciciosTiposDeDatosBásicos;
  * @author Sandra
  *
  */
-public class Ejercicio6 {
+public class Ejercicio06 {
 	
 	public static void main(String[] args) {
 		/*
@@ -25,11 +25,16 @@ public class Ejercicio6 {
 		 */
 		
 		int A=1, B=2, C=3, D=4;
+		int Bi = B;
 		System.out.println("Valores iniciales: A = "+A+" B = "+B+" C = "+C+" D = "+D);
-		System.out.println("B toma el valor de C -> B = "+C);
-		System.out.println("C toma el valor de A -> C = "+A);
-		System.out.println("A toma el valor de D -> A = "+D);
-		System.out.println("D toma el valor de B -> D = "+B);
+		B=C;
+		System.out.println("B toma el valor de C -> B = "+B);
+		C=A;
+		System.out.println("C toma el valor de A -> C = "+C);
+		A=D;
+		System.out.println("A toma el valor de D -> A = "+A);
+		D=Bi;
+		System.out.println("D toma el valor de B -> D = "+D);
 	}
 
 }

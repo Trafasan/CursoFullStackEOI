@@ -13,7 +13,8 @@ public class HolaMundo {
 		System.out.println("Hola mundo");
 		System.out.println("Otra línea");
 		/*
-		 * System.out.println("Segunda línea"); System.out.println("Tercera línea");
+		 * System.out.println("Segunda línea");
+		 * System.out.println("Tercera línea");
 		 */
 		System.out.println("Cuarta línea");
 
@@ -55,10 +56,63 @@ public class HolaMundo {
 		System.out.println("La suma de la letra a más 3 es "+(letraA+3));
 		System.out.println("La conversión de esa suma es "+(char)(letraA+3));
 	}
+	
+	public static void ejemplosString() {
+		String cadena1;
+		cadena1 = "Fran";
+		String cadena2 = "Hola", cadena3 = "Adiós";
+		String cadena4 = cadena2+" "+cadena1;
+		String prefijo = "34";
+		String telefono = "666666666";
+		int n = 40;
+		System.out.println(prefijo+"-"+telefono);
+		System.out.printf("%s tiene %d años\n", cadena1, n);
+		System.out.println("Otra cosa");
+	}
+	public static void ejemplosBoolean() {
+		boolean verdad = true;
+		boolean falso = false;
+		boolean comparacion1 = 10<20;
+		System.out.println(10<20); // true
+		System.out.println(comparacion1); // true
+		String cadena1 = "Hola";
+		String cadena2 = "Adiós";
+		String cadena3 = "Hola";
+		String cadena4 = "hola";
+		System.out.println(cadena1.equals(cadena2)); // false
+		System.out.println(cadena1.equals(cadena3)); // true
+		System.out.println(cadena1.equals(cadena4)); // false
+		int n1 = 5;
+		double n3 = 5.0;
+		double n4 = 5.1;
+		System.out.println(n1==n3); // true
+		System.out.println(n1==n4); // false
+		System.out.println((float)(11/2)==n1); // true, la división de dos números enteros da un número entero
+		System.out.println((11.0/2)==n1); // false
+	}
+	
+	public static void tablasVerdad() {
+		int edad = 25;
+		int anyosCarnet = 6;
+		String sexo = "Masculino";
+		String nombre = "Pepe";
+		boolean esPepeMayor = edad >=18 && nombre.equals("Pepe");
+		System.out.println(esPepeMayor);
+		
+		boolean tieneDescuento = (sexo.equals("Masculino") && anyosCarnet > 10) || (sexo.equals("Femenino") && anyosCarnet > 5);
+				System.out.println(tieneDescuento);
+				boolean estoQueDa = sexo.equals("Masculino") || anyosCarnet>5 && nombre.equals("Fran");
+				System.out.println(estoQueDa);
+				int numero = 7+4*5;
+				System.out.println(numero);
+	}
 
 	public static void main(String[] args) {
 		// ejemplosComentarios();
-		ejemploTipos();
+		// ejemploTipos();
+		// ejemplosString();
+		// ejemplosBoolean();
+		tablasVerdad();
 	}
 
 }

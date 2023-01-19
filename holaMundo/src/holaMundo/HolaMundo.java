@@ -1,5 +1,7 @@
 package holaMundo;
 
+import java.util.Scanner;
+
 /**
  * Esta es la clase inicial del curso
  * 
@@ -106,13 +108,25 @@ public class HolaMundo {
 				int numero = 7+4*5;
 				System.out.println(numero);
 	}
+	
+	public static void entradaDatos() {
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Introduzca su salario: ");
+		double salario = Double.parseDouble(sc.nextLine().replace(',', '.'));
+		System.out.print("Introduzca su salario deseado: ");
+		double salarioD = Double.parseDouble(sc.nextLine().replace(',', '.'));
+		System.out.println("Salario actual: "+salario);
+		System.out.println("Salario deseado: "+salarioD);
+		sc.close();
+	}
 
 	public static void main(String[] args) {
 		// ejemplosComentarios();
 		// ejemploTipos();
 		// ejemplosString();
 		// ejemplosBoolean();
-		tablasVerdad();
+		// tablasVerdad();
+		entradaDatos();
 	}
 
 }

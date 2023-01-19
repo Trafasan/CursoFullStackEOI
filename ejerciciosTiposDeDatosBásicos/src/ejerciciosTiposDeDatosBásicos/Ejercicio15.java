@@ -22,25 +22,27 @@ public class Ejercicio15 {
 		 * Coche azul	24300,00€	29403,00€
 		 * Lámpara		45,50€		55,06€
 		 */
-		Scanner entrada = new Scanner (System.in);
+		Scanner sc = new Scanner (System.in);
 		String[] nombre = new String[3];
 		double[] precio = new double[3];
 		for (int i=0; i<3; i++) {
 			System.out.print("Inserte el nombre del producto ("+(i+1)+"/3): ");
-			nombre[i] = entrada.next(); // Si se pone solo next(), solo devuelve el string hasta el espacio, por lo que da error
-			entrada.nextLine(); // Esta línea soluciona el error anterior
+			nombre[i] = sc.nextLine();
+			// Si se pone solo next(), solo devuelve el string hasta el espacio, por lo que da error
+			// Ese error se soluciona poniendo entrada.nextLine();
 			System.out.print("Inserte su precio: ");
-			precio[i] = entrada.nextDouble();
+			precio[i] = Double.parseDouble(sc.next().replace(',', '.'));
+			sc.nextLine();
 		}
 		double[] iva = new double[3];
 		for (int i=0; i<3; i++) {
 			iva[i] = precio[i]*1.21;
 		}
-		System.out.printf("%-15s%-15s%-15s\n", "NOMBRE", "PRECIO", "CON IVA");
-		System.out.printf("%-15s%12.2f€%12.2f€\n", nombre[0], precio[0], iva[0]);
-		System.out.printf("%-15s%12.2f€%12.2f€\n", nombre[1], precio[1], iva[1]);
-		System.out.printf("%-15s%12.2f€%12.2f€\n", nombre[2], precio[2], iva[2]);
-		entrada.close();
+		System.out.printf("%-15s%12s%12s\n", "NOMBRE", "PRECIO", "CON IVA");
+		for (int i=0; i<3; i++) {
+			System.out.printf("%-15s%11.2f€%11.2f€\n", nombre[i], precio[i], iva[i]);
+		}
+		sc.close();
 
 	}
 

@@ -40,7 +40,7 @@ public class Ejercicios01_05 {
 		 * Recuerda que se pueden comparar los caracteres como si fueran números. Utiliza cadena.charAt(0) para acceder al primer carácter recibido.
 		 */
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca un caracter: ");
+		System.out.print("Introduzca una letra: ");
 		String cadena = sc.nextLine();
 		char letra = cadena.charAt(0);
 		boolean esMayus = Character.isUpperCase(letra);
@@ -89,7 +89,7 @@ public class Ejercicios01_05 {
 		// ejercicio02();
 		// ejercicio03();
 		// ejercicio04();
-		ejercicio05();
+		// ejercicio05();
 	}
 
 }

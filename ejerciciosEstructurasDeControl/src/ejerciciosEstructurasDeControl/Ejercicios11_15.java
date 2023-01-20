@@ -77,26 +77,51 @@ public class Ejercicios11_15 {
 	}
 
 	public static void ejercicio13() {
-		
-		Scanner sc = new Scanner(System.in);
-		sc.close();
+		//Muestra por pantalla los números de 20 al 1 usando un bucle while, y después hazlo otra vez usando un bucle for.
+		int n = 20;
+		while (n !=0) {
+			System.out.println(n);
+			n--;
+		}
+		for (int x=20; x!=0; x--) {
+			System.out.println(x);
+		}
 	}
 
 	public static void ejercicio14() {
-		
+		/*
+		 * Inicializa una variable entera a 0. Después, pregunta al usuario por un número y súmaselo a la variable inicial.
+		 * Repite esto hasta que el usuario introduzca el número cero. Utiliza el bucle do..while.
+		 */
 		Scanner sc = new Scanner(System.in);
+		int n=0, x;
+		do {
+			System.out.println("La variable vale "+n);
+			System.out.print("Introduzca un número: ");
+			x = sc.nextInt();
+			n += x;
+		}while(x != 0);
 		sc.close();
 	}
 
 	public static void ejercicio15() {
-		
+		// Pide al usuario un número y calcula cuantas cifras tiene dicho número. Para ello puedes dividir el número entre 10 hasta que el resultado sea cero.
 		Scanner sc = new Scanner(System.in);
+		System.out.print("Introduzca un número: ");
+		int n = sc.nextInt();
+		int cifras = 0;
+		do {
+			n /= 10;
+			cifras++;
+		}while (n != 0);
+		if (cifras == 1) System.out.println("El número introducido tiene "+cifras+" cifra.");
+		else System.out.println("El número introducido tiene "+cifras+" cifras.");
 		sc.close();
 	}
 
 	public static void main(String[] args) {
 		// ejercicio11();
-		ejercicio12();
+		// ejercicio12();
 		// ejercicio13();
 		// ejercicio14();
 		// ejercicio15();

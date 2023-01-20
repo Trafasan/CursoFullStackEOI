@@ -23,6 +23,7 @@ public class Ejercicio04 {
 		System.out.print(n4+"\n");
 		double resultado = (n1+n2)*n3/n4;
 		System.out.println("("+n1+" + "+n2+") · "+n3+" / "+n4+" = "+resultado);
+		System.out.printf("(%.2f + %.2f) · %.2f / %.2f = %.2f", n1, n2, n3, n4, resultado);
 	}
 
 }

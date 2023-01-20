@@ -70,8 +70,7 @@ public class Ejercicios06_10 {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
 		int A = sc.nextInt();
-		String respuesta = A%2==0?" es par.":" es impar.";
-		System.out.println(A+respuesta);
+		System.out.println(A%2==0?"El número "+A+" es par.":"El número "+A+" es impar.");
 		sc.close();
 	}
 
@@ -146,13 +145,26 @@ public class Ejercicios06_10 {
 		}
 		sc.close();
 	}
+	public static void ejercicio10b() {
+		/*
+		 * Crea un programa que lea una letra tecleada por el usuario y diga si se trata de un signo de puntuación (. , ; :), una cifra numérica (del 0 al 9) u otro
+		 * carácter, usando "switch" (pista: necesitarás usar un dato de tipo "char").
+		 */
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Introduzca una letra: ");
+		char letra = sc.nextLine().charAt(0);
+		if (Character.isDigit(letra)) System.out.println("La letra tecleada es el número "+letra);
+		else System.out.println("La letra tecleada es el caracter "+letra);
+		sc.close();
+	}
 
 	public static void main(String[] args) {
 		// ejercicio06();
 		// ejercicio07();
-		// ejercicio08();
+		ejercicio08();
 		// ejercicio09();
 		// ejercicio10();
+		// ejercicio10b();
 	}
 
 }

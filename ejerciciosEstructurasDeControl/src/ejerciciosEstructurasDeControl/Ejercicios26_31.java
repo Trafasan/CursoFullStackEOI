@@ -30,9 +30,9 @@ public class Ejercicios26_31 {
 	public static void ejercicio27() {
 		// Pide al usuario un ancho y un alto y dibuja un rectángulo vacío.
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca el ancho: ");
+		System.out.print("Introduzca el ancho del rectángulo: ");
 		int ancho = sc.nextInt();
-		System.out.print("Introduzca el alto: ");
+		System.out.print("Introduzca el alto del rectángulo: ");
 		int alto = sc.nextInt();
 		for (int x=1; x<=alto; x++) {
 			if (x == 1 || x == alto) {
@@ -62,7 +62,7 @@ public class Ejercicios26_31 {
 		 * Si la posición actual está entre esas 2 variables dibujas un asterisco, y si no, un espacio.
 		 */
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca la altura: ");
+		System.out.print("Introduzca la altura de la pirámide: ");
 		int altura = sc.nextInt();
 		int ancho = altura*2-1;
 		int asterisco = 1;	
@@ -86,7 +86,7 @@ public class Ejercicios26_31 {
 	public static void ejercicio29() {
 		// Intenta hacer lo mismo pero con una pirámide hueca
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca la altura: ");
+		System.out.print("Introduzca la altura de la pirámide: ");
 		int altura = sc.nextInt();
 		int ancho = altura*2-1;
 		int asterisco = 1;	
@@ -131,7 +131,7 @@ public class Ejercicios26_31 {
 	public static void ejercicio30() {
 		// Dibuja ahora una pirámide invertida
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca la altura: ");
+		System.out.print("Introduzca la altura de la pirámide: ");
 		int altura = sc.nextInt();
 		int ancho = altura*2-1;
 		int asterisco = ancho;	
@@ -159,7 +159,7 @@ public class Ejercicios26_31 {
 		 * Si quieres hacerlo con 2 pirámides, la altura de la primera sería (ancho + 1) / 2
 		 */
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Introduzca el ancho: ");
+		System.out.print("Introduzca el ancho del rombo: ");
 		int ancho = sc.nextInt();
 		int altura = (ancho+1)/2;
 		int asterisco = 1;	
@@ -200,7 +200,7 @@ public class Ejercicios26_31 {
 		// ejercicio28();
 		// ejercicio29();
 		// ejercicio30();
-		ejercicio31();
+		// ejercicio31();
 	}
 
 }

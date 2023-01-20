@@ -63,7 +63,7 @@ public class Ejercicios16_20 {
 		 * ha introducido un cero para salir (break). Si el usuario introduce un número negativo no lo sumes (usa continue para saltarte la suma).
 		 */
 		Scanner sc = new Scanner(System.in);
-		// El ejercicio 2 comprueba si el número es múltiplo de 10, no suma nada...
+		// Este ejercicio no se hace
 		sc.close();
 	}
 

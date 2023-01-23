@@ -4,6 +4,8 @@
 package ejerciciosEstructurasDeControl;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Sandra
@@ -62,17 +64,62 @@ public class Ejercicios11_15 {
 		 */
 		Scanner sc = new Scanner(System.in);
 		double precio = 50;
+		final double MENOR_EDAD = 0.25;
+		final double DESCUENTO_SOCIO = 0.4;
+		final double DESCUENTO_JUBILADO = 0.75;
+		
 		System.out.print("Introduzca su edad: ");
 		int edad = sc.nextInt();
-		if (edad>=0 && edad<18) precio *= (1-0.25);
+		sc.nextLine();
+		if (edad>=0 && edad<18) precio *= (1-MENOR_EDAD);
 		else if (edad<65) {
 			System.out.println("¿Es usted socio? Responda con Sí o No");
 			String respuesta = sc.next();
-			precio = respuesta.equals("Sí")?precio*(1-0.4):precio;
+			
+			Pattern regex = Pattern.compile("^s[iíÍ]?$", Pattern.CASE_INSENSITIVE);
+			Matcher m = regex.matcher(respuesta);
+			if(m.matches()) precio = precio * (1 - DESCUENTO_SOCIO);
+			//precio = respuesta.equals("Sí")?precio*(1-DESCUENTO_SOCIO):precio;
 		}
-		else if (edad>=65) precio*=(1-0.75);
+		else if (edad>=65) precio*=(1-DESCUENTO_JUBILADO);
 		else System.out.println("La edad introducida es incorrecta.");
-		System.out.println("El precio de su entrada es de "+precio+"€");
+		System.out.printf("El precio de su entrada es de %.2f€.\n",precio);
+		sc.close();
+	}
+	public static void ejercicio12Grupo() {
+		Scanner sc = new Scanner(System.in);
+		final double precioEntrada = 50;
+		final double MENOR_EDAD = 0.25;
+		final double DESCUENTO_SOCIO = 0.4;
+		final double DESCUENTO_JUBILADO = 0.75;
+		final int MAYORIA_EDAD = 18;
+		final int EDAD_JUBILACION = 65;
+		double total = 0;
+		System.out.print("Número de personas en el grupo: ");
+		int personas = sc.nextInt();
+		
+		for (int x=0; x<personas; x++) {
+			double precio = precioEntrada;
+			System.out.print("Introduzca su edad ("+(x+1)+"/"+personas+"): ");
+			int edad = sc.nextInt();
+			sc.nextLine();
+			
+			if (edad<MAYORIA_EDAD) precio *= (1-MENOR_EDAD);
+			else if (edad<EDAD_JUBILACION) {
+				System.out.println("¿Es usted socio? Responda con Sí o No");
+				String respuesta = sc.next();
+				
+				Pattern regex = Pattern.compile("^s[iíÍ]?$", Pattern.CASE_INSENSITIVE);
+				Matcher m = regex.matcher(respuesta);
+				if(m.matches()) precio = precio * (1 - DESCUENTO_SOCIO);
+				//precio = respuesta.equals("Sí")?precio*(1-DESCUENTO_SOCIO):precio;
+			}
+			else precio*=(1-DESCUENTO_JUBILADO);
+			System.out.printf("El precio de su entrada es de %.2f€.\n",precio);
+			total += precio;
+		}
+		
+		System.out.printf("El precio total es %.2f€.", total);
 		sc.close();
 	}
 
@@ -122,6 +169,7 @@ public class Ejercicios11_15 {
 	public static void main(String[] args) {
 		// ejercicio11();
 		// ejercicio12();
+		ejercicio12Grupo();
 		// ejercicio13();
 		// ejercicio14();
 		// ejercicio15();

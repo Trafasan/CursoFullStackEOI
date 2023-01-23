@@ -64,6 +64,7 @@ public class HolaMundo {
 		cadena1 = "Fran";
 		String cadena2 = "Hola", cadena3 = "Adiós";
 		String cadena4 = cadena2+" "+cadena1;
+		System.out.println(cadena4);
 		String prefijo = "34";
 		String telefono = "666666666";
 		int n = 40;
@@ -122,7 +123,7 @@ public class HolaMundo {
 
 	public static void main(String[] args) {
 		// ejemplosComentarios();
-		// ejemploTipos();
+		ejemploTipos();
 		// ejemplosString();
 		// ejemplosBoolean();
 		// tablasVerdad();

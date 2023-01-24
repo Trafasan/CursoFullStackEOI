@@ -22,35 +22,34 @@ public class Ejercicios11_15 {
 		System.out.print("Inserte el primer número: ");
 		double n1 = Double.parseDouble(sc.next());
 		sc.nextLine();
-		System.out.print("Inserte el primer número: ");
+		System.out.print("Inserte el segundo número: ");
 		double n2 = Double.parseDouble(sc.next());
 		System.out.println("1. Sumar\n2. Restar\n3. Multiplicar\n4. Dividir");
-		System.out.print("Inserte el número de la opereación que quiera realizar: ");
+		System.out.print("Seleccione el número de la opereación que quiera realizar: ");
 		int op = sc.nextInt();
+		sc.nextLine();
 		switch(op) {
-		case 1:
+		case 1 -> {
 			double suma = n1+n2;
 			System.out.println(n1+" + "+n2+" = "+suma);
-			break;
-		case 2:
+		}
+		case 2 -> {
 			double resta = n1-n2;
 			System.out.println(n1+" - "+n2+" = "+resta);
-			break;
-		case 3:
+		}
+		case 3 -> {
 			double mult = n1*n2;
 			System.out.println(n1+" · "+n2+" = "+mult);
-			break;
-		case 4:
+		}
+		case 4 -> {
 			if (n2 == 0) System.out.println("El divisor no puede ser 0.");
 			else {
 				double div = n1+n2;
 				System.out.println(n1+" / "+n2+" = "+div);
 			}
-			break;
-			default:
-				System.out.println("No se reconoció la opción seleccionada");
 		}
-		sc.nextLine();
+			default -> System.out.println("No se reconoció la opción seleccionada");
+		}
 		sc.close();
 	}
 

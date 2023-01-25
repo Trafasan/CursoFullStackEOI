@@ -32,13 +32,17 @@ public class Ejercicios16_20 {
 
 	public static void ejercicio18() {
 		// Muestra de 5 en 5, los números del 0 al 100.
-		Scanner sc = new Scanner(System.in);
 		int n = 0;
 		while (n<=100){
 			System.out.println(n);
-			n += 5;
+			n+=5;
 		}
-		sc.close();
+	}
+	
+	public static void ejercicio18For() {
+		for (int i=0; i<=100; i+=5) {
+			System.out.println(i);
+		}
 	}
 
 	public static void ejercicio19() {
@@ -49,10 +53,9 @@ public class Ejercicios16_20 {
 		 */
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Introduzca un número: ");
-		int n = sc.nextInt();
-		for (int x = 1; x <=n; x++) {
-			if (x != n) System.out.print(x+", ");
-			else System.out.print(x);
+		int n = Integer.parseInt(sc.nextLine());
+		for (int i=1; i<=n; i++) {
+			System.out.print(i + ((i != n) ? ", " : ""));
 		}
 		sc.close();
 	}
@@ -71,7 +74,8 @@ public class Ejercicios16_20 {
 		// ejercicio16();
 		// ejercicio17();
 		// ejercicio18();
-		// ejercicio19();
+		// ejercicio18For();
+		ejercicio19();
 		// ejercicio20();
 	}
 

@@ -92,16 +92,24 @@ public class Ejercicios11_13 {
 		 * Silla 14,95€ 4 59,80€
 		 */
 		String[][] datosProductos = {{"Mesa", "99.50", "3"},{"Silla", "14.95", "4"}};
-		double cambioPrecio = Double.parseDouble(datosProductos[0][1]);
-		int cambioCantidad = Integer.parseInt(datosProductos[0][2]);
-		System.out.printf("%-15s%-10s%-10s%-10s", "NOMBRE", "PRECIO", "CANT", "TOTAL");
-		//datosProductos[0][1];
+		double[] precios = new double [datosProductos.length];
+		int[] cantidades = new int [datosProductos.length];
+		double[] totales = new double [datosProductos.length];
+		System.out.printf("%-15s%8s%6s%12s\n", "NOMBRE", "PRECIO", "CANT", "TOTAL");
+		for (int i=0; i<41; i++) System.out.print('-');
+		System.out.println();
+		for (int i=0; i<datosProductos.length; i++) {
+			precios[i] = Double.parseDouble(datosProductos[i][1]);
+			cantidades[i] = Integer.parseInt(datosProductos[i][2]);
+			totales[i] = precios[i]*cantidades[i];
+			System.out.printf("%-15s%7.2f€%6d%11.2f€\n", datosProductos[i][0], precios[i], cantidades[i], totales[i]);
+		}
 	}
 
 	public static void main(String[] args) {
 		// ejercicio11();
 		// ejercicio12();
-		ejercicio13();
+		// ejercicio13();
 	}
 
 }

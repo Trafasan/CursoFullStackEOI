@@ -1,4 +1,4 @@
-package holaMundo;
+package tiposDeDatosBásicos;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author Sandra
  * @since 1.0
  */
-public class HolaMundo {
+public class TiposDeDatosBásicos {
 
 	public static void ejemplosComentarios() {
 		// System.out.println("Hola Sandra");
@@ -71,10 +71,11 @@ public class HolaMundo {
 		System.out.println(prefijo+"-"+telefono);
 		System.out.printf("%s tiene %d años\n", cadena1, n);
 		System.out.println("Otra cosa");
+		System.out.println(cadena3);
 	}
 	public static void ejemplosBoolean() {
-		boolean verdad = true;
-		boolean falso = false;
+		// boolean verdad = true;
+		// boolean falso = false;
 		boolean comparacion1 = 10<20;
 		System.out.println(10<20); // true
 		System.out.println(comparacion1); // true

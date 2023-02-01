@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ejerciciosArrays;
+package ejercicios;
 
 import java.util.Scanner;
 

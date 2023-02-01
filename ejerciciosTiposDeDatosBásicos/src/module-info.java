@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Sandra
- *
- */
-module ejerciciosTiposDeDatosBásicos {
-}

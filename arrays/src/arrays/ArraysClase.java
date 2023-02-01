@@ -125,7 +125,7 @@ public class ArraysClase {
 		// unirArraysEnCadena();
 		// redireccionEliminacion();
 		// ordenarArrays();
-		ordenarArraysInverso();
+		// ordenarArraysInverso();
 	}
 
 }

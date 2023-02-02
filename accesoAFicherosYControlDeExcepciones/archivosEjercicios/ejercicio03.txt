@@ -1,0 +1,5 @@
+Pepito;6.75
+Sandra;8.50
+Jorge;7.25
+Helena;5.75
+Alejandro;9.00

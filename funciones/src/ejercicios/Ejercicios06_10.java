@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Sandra
@@ -38,28 +40,40 @@ public class Ejercicios06_10 {
 		 * A continuación pide al usuario que adivine la palabra seleccionada (tiene 3 intentos, usa un bucle).
 		 * Si la acierta felicítale, y si no, dile cual era la correcta.
 		 */
-		String respuesta = funcion07("Hola", "Adiós");
+		String respuesta = funcion07("Sandra", "Jorge", "Helena", "Alejandro");
 		System.out.println(respuesta);
 	}
 	public static String funcion07(String... cadenas) {
 		Scanner sc = new Scanner (System.in);
-		int n = new Random().nextInt(cadenas.length);
-		String cadenaElegida = cadenas[n];
-		boolean resumen = false;
+		final int maxIntentos = 3;
+		mostrarElementos(cadenas);
+		String cadenaElegida = devolverAzar(cadenas);
+		boolean acierto = false;
 		int intento = 0;
-		for (int i=0; i<3; i++) {
+		do {
 			intento++;
-			System.out.println("Intento nº"+intento);
+			System.out.println("Intento nº"+intento+" de "+maxIntentos);
 			System.out.print("Introduzca una cadena: ");
 			String respuesta = sc.nextLine();
 			if (respuesta.equals(cadenaElegida)) {
-				resumen = true;
+				acierto = true;
 				break;
 			}
-		}
-		String contestacion = (resumen) ? "Felicidades, acertaste en tu intento nº"+intento : "Se quedó sin intentos. La cadena correcta era "+cadenaElegida;
+		} while (intento<maxIntentos);
+		String contestacion = ((acierto) ? "Felicidades, acertaste en tu intento nº"+intento : "Se quedó sin intentos. La cadena correcta era "+cadenaElegida)+'.';
 		sc.close();
 		return contestacion;
+	}
+	public static String devolverAzar(String... cadenas) {
+		int n = new Random().nextInt(cadenas.length);
+		String cadenaElegida = cadenas[n];
+		return cadenaElegida;
+	}
+	public static void mostrarElementos(String... cadenas) {
+		System.out.print("Posibles respuestas:");
+		Arrays.stream(cadenas).forEach(e->System.out.print(" "+e)); // Programación funcional de un bucle for each
+		System.out.println();
+		// System.out.println("Posibles respuestas: "+String.join(", ", cadenas)); también serviría
 	}
 
 	public static void ejercicio08() {
@@ -93,7 +107,13 @@ public class Ejercicios06_10 {
 		 * Por ejemplo, si recibimos “cocinando cocos con chocolate” y “co” devolveremos el número 4.
 		 */
 		int respuesta = funcion09("cocinando cocos con chocolate", "co");
+		int respuestaS = funcion09S("cocinando cocos con chocolate", "co");
+		int respuesta2 = funcion09("cocinando cococos con chococolate", "coco");
+		int respuesta2S = funcion09S("cocinando cococos con chococolate", "coco");
 		System.out.println(respuesta);
+		System.out.println(respuestaS);
+		System.out.println(respuesta2);
+		System.out.println(respuesta2S);
 	}
 	public static int funcion09(String cadena, String subcadena) {
 		int comienzo = 0;
@@ -101,11 +121,16 @@ public class Ejercicios06_10 {
 		while (comienzo<cadena.length()) {
 			int coincidencia = cadena.indexOf(subcadena, comienzo);
 			 if (coincidencia == -1) break;
-			 else {
-				 comienzo = coincidencia+1;
-				 contador++;
-			 }
+			 comienzo = coincidencia+subcadena.length();
+			 contador++;
 		}
+		return contador;
+	}
+	public static int funcion09S(String cadena, String subcadena) {
+		int contador = 0;
+		Pattern patron = Pattern.compile(subcadena);
+		Matcher coincidencia = patron.matcher(cadena);
+		while (coincidencia.find()) contador++;
 		return contador;
 	}
 	
@@ -131,7 +156,7 @@ public class Ejercicios06_10 {
 		// ejercicio07();
 		// ejercicio08();
 		// ejercicio08();
-		// ejercicio09();
+		ejercicio09();
 		// ejercicio10();
 	}
 

@@ -1,0 +1,4 @@
+Creo que ya
+Ejercicio resuelto
+Se imprime línea a línea
+Y no se sobreescribe

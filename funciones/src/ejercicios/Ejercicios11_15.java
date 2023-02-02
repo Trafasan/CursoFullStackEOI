@@ -57,18 +57,25 @@ public class Ejercicios11_15 {
 		 * Crea una función que a partir de una fecha (LocalDateTime) que reciba por parámetro, te devuelva una cadena con la fecha en el siguiente formato:
 		 * Si recibimos la siguiente fecha “04/07/2019”, devolvería “Jueves, 4 de julio de 2019”.
 		 */
-		LocalDate fecha = LocalDate.parse("04/07/2019", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		LocalDate fecha = LocalDate.parse("15/07/2019", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		String fechaEscrita = funcion14(fecha);
 		System.out.println(fechaEscrita);
+		String fechaEscritaS = funcion14S(fecha);
+		System.out.println(fechaEscritaS);
 	}
 	public static String funcion14(LocalDate fecha) {
-		String[] dias = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
-		String stringDia = dias[fecha.getDayOfWeek().getValue()];
+		String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+		String stringDia = dias[fecha.getDayOfWeek().getValue()-1];
 		int numberDia = fecha.getDayOfMonth();
 		String[] meses = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
 		String mes = meses[fecha.getMonthValue()-1];
 		int year = fecha.getYear();
 		String fechaEscrita = stringDia+", "+numberDia+" de "+mes+" de "+year;
+		return fechaEscrita;
+	}
+	public static String funcion14S(LocalDate fecha) {
+		String fechaEscrita = fecha.format(DateTimeFormatter.ofPattern("eeee, dd 'de' MMMM 'de' yyyy"));
+		fechaEscrita = fechaEscrita.toUpperCase().charAt(0) + fechaEscrita.substring(1, fechaEscrita.length()); // Esto sirve para poner en mayúsculas la primera letra
 		return fechaEscrita;
 	}
 	
@@ -83,8 +90,8 @@ public class Ejercicios11_15 {
 	public static String funcion15(String stringFecha) {
 		DateTimeFormatter formateo = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate fecha = LocalDate.parse(stringFecha, formateo);
-		LocalDate fechaNueva = fecha.plusYears(2).plusMonths(3).plusDays(5);
-		String resultado = fechaNueva.format(formateo);
+		fecha = fecha.plusYears(2).plusMonths(3).plusDays(5);
+		String resultado = fecha.format(formateo);
 		return resultado;
 	}
 
@@ -92,7 +99,7 @@ public class Ejercicios11_15 {
 		// ejercicio11();
 		// ejercicio12();
 		// ejercicio13();
-		// ejercicio14();
+		ejercicio14();
 		// ejercicio15();
 	}
 

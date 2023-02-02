@@ -1,0 +1,5 @@
+Mesa;130.50
+Silla;55.99
+Sofá;259.75
+Estantería;84.99
+Armario;70.00

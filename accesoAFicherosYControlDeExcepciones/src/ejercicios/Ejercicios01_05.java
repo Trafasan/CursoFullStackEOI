@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -104,17 +105,116 @@ public class Ejercicios01_05 {
 	}
 	 
 	public static void ejercicio04() {
-
+		/*
+		 * Crea un programa que muestre el siguiente menú:
+		 * 1) Mostrar productos
+		 * 2) Añadir producto
+		 * 0) Salir
+		 * Trabajaremos con un fichero que contendrá la información de varios productos.
+		 * Un producto en cada línea con los datos nombre y precio separados por punto y coma.
+		 * La opción 1 mostrará los productos del fichero (formatea la salida para que los precios salgan alineados con 2 decimales).
+		 * La opción 2 te pedirá el nombre de un producto y el precio y lo insertará al final del archivo.
+		 * Debes mostrar el menú hasta que el usuario seleccione salir.
+		 * Cada una de las opciones impleméntalas en funciones separadas que llamarás desde el método main.
+		 */
+		int numOpcion=0;
+		Scanner sc = new Scanner (System.in);
+		do {
+			menuEjer04("Mostrar productos", "Añadir producto");
+			System.out.print("Seleccione una opción: ");
+			numOpcion = Integer.parseInt(sc.nextLine());
+			switch (numOpcion) {
+			case 1 -> mostrarProductos();
+			case 2 -> {
+				System.out.print("Introduzca el nombre del producto: ");
+				String nombre = sc.nextLine();
+				System.out.print("Introduzca el precio del producto: ");
+				double precio = Double.parseDouble(sc.nextLine().replace(',', '.'));
+				anyadirProductos(nombre, precio);
+			}
+			case 0 -> System.out.println("Hasta pronto :)");
+			default -> System.out.println("Opción no reconocida");
+			}
+		} while (numOpcion != 0);
+		sc.close();
+	}
+	public static void menuEjer04(String...opciones) {
+		int numOpcion = 1;
+		for (String opcion : opciones) System.out.println(numOpcion++ + ") " + opcion);
+		System.out.println("0) Salir");
+	}
+	public static void mostrarProductos() {
+		Path archivo = Paths.get("archivosEjercicios", "ejercicio04.txt");
+		try {
+			List<String> lineas = Files.readAllLines(archivo);
+			for (String linea:lineas) {
+				String[] datos = linea.split(";");
+				String nombre = datos[0];
+				double precio = Double.parseDouble(datos[1].replace(',', '.'));
+				System.out.printf("%s: %.2f€\n", nombre, precio);
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.err.println("¡El archivo " + archivo + " no existe!");
+		} catch (IOException e) {
+			System.err.println("Error leyendo el archivo " + archivo);
+		}
+	}
+	public static void anyadirProductos(String nombre, double precio) {
+		Path archivo = Paths.get("archivosEjercicios", "ejercicio04.txt");
+		try {
+			Files.writeString(archivo, nombre+';'+precio+"\n", StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			System.err.println("Error escribiendo: " + e.getMessage());
+		}
 	}
 
 	public static void ejercicio05() {
-
+		/*
+		 * A partir de un archivo que contiene una palabra en cada línea. Carga las palabras en un array y selecciona una al azar.
+		 * Pide al usuario que la adivine. Tiene 3 intentos.
+		 */
+		Path archivo = Paths.get("archivosEjercicios", "ejercicio05.txt");
+		try {
+			List<String> lineas = Files.readAllLines(archivo);
+			Scanner sc = new Scanner (System.in);
+			final int maxIntentos = 3;
+			mostrarElementos(lineas);
+			String cadenaElegida = devolverAzar(lineas);
+			boolean acierto = false;
+			int intento = 0;
+			do {
+				intento++;
+				System.out.println("Intento nº"+intento+" de "+maxIntentos);
+				System.out.print("Introduzca una cadena: ");
+				String respuesta = sc.nextLine();
+				if (respuesta.equals(cadenaElegida)) {
+					acierto = true;
+					break;
+				}
+			} while (intento<maxIntentos);
+			String contestacion = ((acierto) ? "Felicidades, acertaste en tu intento nº"+intento : "Se quedó sin intentos. La palabra correcta era "+cadenaElegida)+'.';
+			System.out.println(contestacion);
+			sc.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("¡El archivo " + archivo + " no existe!");
+		} catch (IOException e) {
+			System.err.println("Error leyendo el archivo " + archivo);
+		}
+	}
+	public static void mostrarElementos(List<String> cadenas) {
+		System.out.println("Posibles respuestas: "+String.join(", ", cadenas));
+	}
+	public static String devolverAzar(List<String> cadenas) {
+		int n = new Random().nextInt(cadenas.size());
+		String cadenaElegida = cadenas.get(n);
+		return cadenaElegida;
 	}
 
 	public static void main(String[] args) {
 		// ejercicio01();
 		// ejercicio02();
-		ejercicio03();
+		// ejercicio03();
 		// ejercicio04();
 		// ejercicio05();
 	}

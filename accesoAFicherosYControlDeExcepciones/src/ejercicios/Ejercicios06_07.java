@@ -86,7 +86,27 @@ public class Ejercicios06_07 {
 	}
 
 	public static void ejercicio07() {
-		
+		/*
+		 * Haz un programa que pregunte al usuario por el nombre de un fichero y muestra su contenido.
+		 * Observa que cuando el fichero no existe lanza una excepción.
+		 * Captúrala e informa de que el fichero no existe al usuario.
+		 */
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Introduzca el nombre del archivo: ");
+		String nombre = sc.nextLine();
+		nombre +='.';
+		System.out.print("Introduzca la extensión del archivo: ");
+		nombre += sc.nextLine();
+		sc.close();
+		try {
+			funcion07(Paths.get("archivosEjercicios", nombre));
+		} catch (IOException e) {
+			System.err.println("ERROR: " + e.getMessage()+ " no encontrado");
+		}
+	}
+	public static void funcion07(Path archivo) throws IOException {
+		List<String> lineas = Files.readAllLines(archivo);
+		for (String linea:lineas) System.out.println(linea);
 	}
 
 	public static void main(String[] args) {

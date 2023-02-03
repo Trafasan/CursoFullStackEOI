@@ -92,26 +92,41 @@ public class Ejercicios06_07 {
 		 * Captúrala e informa de que el fichero no existe al usuario.
 		 */
 		Scanner sc = new Scanner (System.in);
-		System.out.print("Introduzca el nombre del archivo: ");
-		String nombre = sc.nextLine();
-		nombre +='.';
-		System.out.print("Introduzca la extensión del archivo: ");
-		nombre += sc.nextLine();
+		System.out.print("Introduzca la ruta del archivo txt: ");
+		String ruta = sc.nextLine();
+		System.out.print("Introduzca el nombre del archivo txt: ");
+		String archivo = sc.nextLine();
 		sc.close();
 		try {
-			funcion07(Paths.get("archivosEjercicios", nombre));
+			leerArchivos07(Paths.get(obtenerRutaArchivo07(ruta, archivo)));
 		} catch (IOException e) {
 			System.err.println("ERROR: " + e.getMessage()+ " no encontrado");
 		}
 	}
-	public static void funcion07(Path archivo) throws IOException {
-		List<String> lineas = Files.readAllLines(archivo);
-		for (String linea:lineas) System.out.println(linea);
+	/**
+	 * Obtención de la localización de un archivo txt a partir de su ubicación y su nombre.
+	 * @param ruta Ubicación del archivo.
+	 * @param archivo Nombre del archivo.
+	 * @return Variable {@code String} con la localización de un archivo txt.
+	 * @throws IOException
+	 */
+	public static String obtenerRutaArchivo07(String ruta, String archivo) throws IOException {
+		ruta = ruta.replace("\\", "\\\\"); // Cambia \ por \\
+		String rutaArchivo = ruta+"\\\\"+archivo+".txt";
+		return rutaArchivo;
+	}
+	/**
+	 * Imprime por consola el contenido de un archivo.
+	 * @param rutaArchivo Ruta del archivo que se quiere imprimir.
+	 * @throws IOException
+	 */
+	public static void leerArchivos07(Path rutaArchivo) throws IOException {
+		Files.readAllLines(rutaArchivo).forEach(l->System.out.println(l));
 	}
 
 	public static void main(String[] args) {
-		ejercicio06();
-		// ejercicio07();
+		// ejercicio06();
+		ejercicio07();
 	}
 
 }

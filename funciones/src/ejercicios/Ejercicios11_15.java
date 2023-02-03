@@ -84,14 +84,36 @@ public class Ejercicios11_15 {
 		 * Crea una función que reciba una fecha en formato dd-mm-yyyy, conviértela a fecha (LocalDate) utilizando la función subString
 		 * o split para extraer el día, mes y año, o usa el DateTimeFormatter, súmale 2 años, 3 meses y 5 días, y muestra la fecha resultante.
 		 */
-		String resultado = funcion15("24-11-2021");
-		System.out.println(resultado);
+		System.out.println("Fecha usando DateTimeFormatter: "+fechaDateTimeFormatter15("24-11-2021"));
+		System.out.println("Fecha utilizando split: "+fechaSplit15("24-11-2021"));
+		System.out.println("Fecha utilizando subString: "+fechaSubString15("24-11-2021"));
 	}
-	public static String funcion15(String stringFecha) {
+	public static String fechaDateTimeFormatter15(String stringFecha) {
 		DateTimeFormatter formateo = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate fecha = LocalDate.parse(stringFecha, formateo);
+		String resultado = sumaFecha15(fecha);
+		return resultado;
+	}
+	public static String fechaSplit15(String stringFecha) {
+		String[] fecha = stringFecha.split("-");
+		LocalDate fechaNueva = LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
+		String resultado = sumaFecha15(fechaNueva);
+		return resultado;
+	}
+	public static String fechaSubString15(String stringFecha) {
+		LocalDate fecha = LocalDate.of(Integer.parseInt(stringFecha.substring(6,10)), Integer.parseInt(stringFecha.substring(3, 5)), Integer.parseInt(stringFecha.substring(0, 2)));
+		String resultado = sumaFecha15(fecha);
+		return resultado;
+	}
+	/**
+	 * Aumenta el número de días, meses y años de una fecha en 5, 3 y 2, respectivamente.<br>
+	 * Devuelve la fecha en formato dd-MM-yyyy.
+	 * @param fecha Variable {@code LocalDate} que queremos aumentar.
+	 * @return Variable {@code String} de la fecha aumentada.
+	 */
+	public static String sumaFecha15(LocalDate fecha) {
 		fecha = fecha.plusYears(2).plusMonths(3).plusDays(5);
-		String resultado = fecha.format(formateo);
+		String resultado = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		return resultado;
 	}
 
@@ -99,8 +121,8 @@ public class Ejercicios11_15 {
 		// ejercicio11();
 		// ejercicio12();
 		// ejercicio13();
-		ejercicio14();
-		// ejercicio15();
+		// ejercicio14();
+		ejercicio15();
 	}
 
 }

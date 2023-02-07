@@ -177,10 +177,12 @@ public class Ejercicios01_05 {
 		Path archivo = Paths.get("archivosEjercicios", "ejercicio05.txt");
 		try {
 			List<String> lineas = Files.readAllLines(archivo);
-			Scanner sc = new Scanner (System.in);
+			String[] lineasArray = lineas.toArray(new String[lineas.size()]); //Para pasar de una lista a un Array
+			// String[] lineasArray = lineas.stream().toArray(String[]::new); es otra alternativa
+	        Scanner sc = new Scanner (System.in);
 			final int maxIntentos = 3;
-			mostrarElementos(lineas);
-			String cadenaElegida = devolverAzar(lineas);
+			mostrarElementos(lineasArray);
+			String cadenaElegida = devolverAzar(lineasArray);
 			boolean acierto = false;
 			int intento = 0;
 			do {
@@ -202,12 +204,12 @@ public class Ejercicios01_05 {
 			System.err.println("Error leyendo el archivo " + archivo);
 		}
 	}
-	public static void mostrarElementos(List<String> cadenas) {
+	public static void mostrarElementos(String[] cadenas) {
 		System.out.println("Posibles respuestas: "+String.join(", ", cadenas));
 	}
-	public static String devolverAzar(List<String> cadenas) {
-		int n = new Random().nextInt(cadenas.size());
-		String cadenaElegida = cadenas.get(n);
+	public static String devolverAzar(String[] cadenas) {
+		int n = new Random().nextInt(cadenas.length);
+		String cadenaElegida = cadenas[n];
 		return cadenaElegida;
 	}
 
@@ -216,7 +218,7 @@ public class Ejercicios01_05 {
 		// ejercicio02();
 		// ejercicio03();
 		// ejercicio04();
-		// ejercicio05();
+		ejercicio05();
 	}
 
 }

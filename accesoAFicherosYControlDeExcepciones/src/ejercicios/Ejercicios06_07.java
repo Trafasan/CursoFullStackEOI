@@ -111,8 +111,7 @@ public class Ejercicios06_07 {
 	 * @throws IOException
 	 */
 	public static String obtenerRutaArchivo07(String ruta, String archivo) throws IOException {
-		ruta = ruta.replace("\\", "\\\\"); // Cambia \ por \\
-		String rutaArchivo = ruta+"\\\\"+archivo+".txt";
+		String rutaArchivo = ruta+"\\"+archivo+".txt";
 		return rutaArchivo;
 	}
 	/**
@@ -126,7 +125,7 @@ public class Ejercicios06_07 {
 
 	public static void main(String[] args) {
 		// ejercicio06();
-		ejercicio07();
+		// ejercicio07();
 	}
 
 }

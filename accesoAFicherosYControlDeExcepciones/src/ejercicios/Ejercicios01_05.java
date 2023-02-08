@@ -49,21 +49,35 @@ public class Ejercicios01_05 {
 		 * palabra ‘FIN’.
 		 */
 		Scanner sc = new Scanner(System.in);
-		Path archivo = Paths.get("archivosEjercicios", "ejercicio02.txt");
+		Path archivo = Paths.get("archivosEjercicios", "ejercicio02b.txt");
 		String linea;
+		crearFichero02(archivo);
 		do {
-			System.out.print("Introduzca la cadena que quiera escribir en el fichero: ");
+			System.out.print("Introduzca la línea que quiera escribir en el fichero (escriba FIN para finalizar): ");
 			linea = sc.nextLine();
-			if (!linea.equals("FIN")) {
+			if (!linea.equalsIgnoreCase("FIN")) {
 				try {
 					Files.writeString(archivo, linea + "\n", StandardOpenOption.APPEND);
 				} catch (IOException e) {
 					System.err.println("Error escribiendo: " + e.getMessage());
 				}
 			}
-		} while (!linea.equals("FIN"));
+		} while (!linea.equalsIgnoreCase("FIN"));
 		sc.close();
 	}
+	
+	/**
+	 * Crea un fichero con el nombre introducido si no existe o formatea el contenido del fichero ya existente.
+	 * @param archivo Ruta del archivo que se va a crear o formatear
+	 */
+	public static void crearFichero02(Path archivo) {
+		try {
+			Files.writeString(archivo, "");
+		} catch (IOException e) {
+			System.err.println("Error escribiendo: " + e.getMessage());
+		}
+	}
+	
 
 	public static void ejercicio03() {
 		/*
@@ -215,10 +229,10 @@ public class Ejercicios01_05 {
 
 	public static void main(String[] args) {
 		// ejercicio01();
-		// ejercicio02();
+		ejercicio02();
 		// ejercicio03();
 		// ejercicio04();
-		ejercicio05();
+		// ejercicio05();
 	}
 
 }

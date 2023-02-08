@@ -1,1 +1,6 @@
 Ejercicio 02 terminado
+Comprobación del resultado
+Si aparecen estas líneas bien colocadas...
+El ejercicio 2 está correcto
+Hola
+Mundo

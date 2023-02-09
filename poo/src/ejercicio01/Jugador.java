@@ -17,7 +17,7 @@ public class Jugador {
 		this.setEdad(edad);
 		this.setSueldo(sueldo);
 	}
-	
+	// Constructor de copia
 	public Jugador(Jugador j) {
 		this.nombre = j.nombre;
 		this.setEdad(j.edad);

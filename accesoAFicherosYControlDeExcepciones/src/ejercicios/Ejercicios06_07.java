@@ -41,8 +41,7 @@ public class Ejercicios06_07 {
 			final int maxIntentos = 7;
 			int intentos = maxIntentos;
 			String cadenaElegida = devolverAzar(lineas);
-			String[] letras = new String [cadenaElegida.length()];
-			for (int i=0; i<letras.length; i++) letras[i] = "*";
+			String respuesta = "*".repeat(cadenaElegida.length());
 			// System.out.println(cadenaElegida);
 			do {
 				System.out.print("Introduzca una letra: ");
@@ -50,13 +49,11 @@ public class Ejercicios06_07 {
 				boolean acierto = false;
 				for (int i=0; i<cadenaElegida.length(); i++) {
 					if (Character.toLowerCase(letra) == cadenaElegida.charAt(i) || Character.toUpperCase(letra) == cadenaElegida.charAt(i)) {
-						letras[i] = Character.toString(cadenaElegida.charAt(i));
+						respuesta = new StringBuilder(respuesta).replace(i, (i+1), Character.toString(cadenaElegida.charAt(i))).toString();
 						acierto = true;
 					}
 				}
 				if (acierto) {
-					String respuesta = "";
-					for (String letraRespuesta:letras) respuesta += letraRespuesta;
 					System.out.println(respuesta);
 					if (respuesta.equals(cadenaElegida)) {
 						System.out.println("Felicidades. Has acertado");
@@ -124,7 +121,7 @@ public class Ejercicios06_07 {
 	}
 
 	public static void main(String[] args) {
-		// ejercicio06();
+		ejercicio06();
 		// ejercicio07();
 	}
 

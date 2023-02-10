@@ -61,8 +61,14 @@ public class Main {
 		e1.addJugador(null);
 		e1.deleteJugador(0);
 		for (int i=0; i<e1.getNumJugadores(); i++) /*if(e1.getJugador(i)!=null)*/ System.out.println(e1.getJugador(i)); //El if es para que no imprima los null
-		System.out.printf("Suma total de los sueldos: %.2f€", e1.totalSueldos());
+		System.out.printf("Suma total de los sueldos: %.2f€", e1.totalSueldosFuncional());
 		
+		
+		System.out.println("\nPRUEBAS");
+		Equipo prueba = new Equipo();
+		prueba.setJugadores(null);
+		if(prueba.addJugadorBoolean(new Jugador ("Fran", 25, 100000))) System.out.println(prueba);
+		else System.err.println("El jugador no se ha podido añadir correctamente");
 	}
 
 }

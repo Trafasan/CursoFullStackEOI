@@ -68,7 +68,7 @@ public class UICuenta {
 	}
 	
 	private static LocalDate fechaNacimiento(Map<String, Cuenta> datosCliente, String dni) {
-		return datosCliente.get(dni).getFechaNacimiento();
+		return datosCliente.get(dni).getFechaNacimientoCliente();
 	}
 	
 	public static Set<LocalDate> fechasNacimiento(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {

@@ -88,6 +88,8 @@ public class Main {
 		String codigo_pais = datos[3];
 		if (codigo_pais.equals("ES")) System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 		else System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss")));
+		// Cambiar para que la fecha sea Miércoles, 15 de febrero de 2023...
+		// Mirar cómo sería en formato inglés
 	}
 	
 	public static LocalDate fechaNacimiento(String[] datos) {

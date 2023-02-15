@@ -2,11 +2,13 @@ package com.sandra.projectFicherosFechasColecciones;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
-import com.sandra.projectFicherosFechasColecciones.utils.UIApp;
+import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
+import com.sandra.projectFicherosFechasColecciones.utils.UICuenta;
 
 /**
  * Hello world!
@@ -53,46 +55,30 @@ public class App {
 	 * Se adjuntan datos de 3 bancos (caixa, santander y sabadell) y el fichero de
 	 * productos (productosofertados)
 	 */
-	public static void ofrecerProducto() {
+	public static void gestionDatosFicheros() {
 		final String nombreFicheroCaixa = "caixa.txt";
 		final String nombreFicheroSabadell = "sabadell.txt";
 		final String nombreFicheroSantander = "santander.txt";
 		Scanner sc = new Scanner (System.in);
 		System.out.print("Introduzca su DNI-CIF: ");
 		String dni = sc.nextLine();
-		String[] datosCaixa = UIApp.buscarCliente(nombreFicheroCaixa, dni);
-		String[] datosSabadell = UIApp.buscarCliente(nombreFicheroSabadell, dni);
-		String[] datosSantander = UIApp.buscarCliente(nombreFicheroSantander, dni);
-		if (datosCaixa != null) {
-			UIApp.mensajeBienvenida(datosSabadell);
-			UIApp.fechaActualFormateada(datosSantander);
-			LocalDate fechaCaixa = UIApp.fechaNacimiento(datosCaixa);
-			LocalDate fechaSabadell = UIApp.fechaNacimiento(datosSabadell);
-			LocalDate fechaSantander = UIApp.fechaNacimiento(datosSantander);
-			LocalDate fechaCorrecta = fechaCaixa;
-			if (!UIApp.fechasIguales(fechaCaixa, fechaSabadell, fechaSantander)) {
-				List<LocalDate> fechasAElegir = UIApp.comparacionFechas(fechaCaixa, fechaSabadell, fechaSantander);
-				System.out.println("Se han encontrado diferentes fechas de nacimiento en sus cuentas:");
-				fechasAElegir.forEach(e->System.out.println(e.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-				System.out.print("Eliga cuál de ellas es la correcta: ");
-				fechaCorrecta = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-			}
+		Map<String, Cuenta> datosCaixa = UICuenta.getMap(nombreFicheroCaixa);
+		Map<String, Cuenta> datosSabadell = UICuenta.getMap(nombreFicheroSabadell);
+		Map<String, Cuenta> datosSantander = UICuenta.getMap(nombreFicheroSantander);
+		if (datosCaixa.containsKey(dni)) {
+			UICuenta.mensajeBienvenidaConFecha(datosCaixa, dni);
+			Set<LocalDate> fechasNacimiento = UICuenta.fechasNacimiento(datosCaixa, datosSabadell, datosSantander, dni);
+			LocalDate fechaCorrecta = UICuenta.fechaCorrecta(fechasNacimiento, sc);
 			int edad = Period.between(fechaCorrecta, LocalDate.now()).getYears();
-			double sumaSaldos = UIApp.sumaSaldos(datosCaixa, datosSabadell, datosSantander);
-			List<String> productos = UIApp.buscarProductos("productosofertados.txt", edad, sumaSaldos);
-			if (productos.size() != 0) {
-				List<Double> saldosMin = UIApp.listaSaldosMin(productos); // Divide en dos la lista
-				String producto = productos.get(0);
-				if (productos.size() != 1) producto = productos.get(saldosMin.indexOf(UIApp.saldoMinimoMasAlto(saldosMin)));
-				System.out.println("¿Le interesaría la "+producto+"?");
-			}
-			else System.out.println("Lo sentimos. No tenemos ningún producto que ofrecerle");
+			double sumaSaldos = UICuenta.sumaSaldos(datosCaixa, datosSabadell, datosSantander, dni);
+			List<String> productos = UICuenta.buscarProductos("productosofertados.txt", edad, sumaSaldos);
+			System.out.println(UICuenta.ofrecerProducto(productos));
 		}
 		else System.err.println("No se ha reconocido el DNI-CIF introducido.");
 		sc.close();
-    }
+	}
 	
 	public static void main(String[] args) {
-		ofrecerProducto();
+		gestionDatosFicheros();
     }
 }

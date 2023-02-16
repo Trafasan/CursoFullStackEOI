@@ -59,10 +59,11 @@ public class App {
     	List<CuentaSabadell> cuentasSabadell = CuentaSabadell.getListCuentaSabadell(nombreFicheroSabadell);
     	List<CuentaSantander> cuentasSantander = CuentaSantander.getListCuentaSantander(nombreFicheroSantander);
     	List<Cuenta> cuentasBancos = Methods.unirListas(cuentasCaixa, cuentasSabadell, cuentasSantander);
-    	for (Cuenta cuenta:cuentasBancos) {
-			if (cuenta instanceof CuentaCaixa) System.out.println("Cuenta de CaixaBank\n"+cuenta);
-			else if (cuenta instanceof CuentaSabadell) System.out.println("Cuenta del banco Sabadell\n"+cuenta);
-			else System.out.println("Cuenta del banco Santander\n"+cuenta);
-		}
+    	Methods.impresionListaUnida(cuentasBancos);
+    	Methods.borrarCuenta(cuentasBancos);
+    	Methods.impresionCuentaBorrada(cuentasBancos, cuentasCaixa, cuentasSabadell, cuentasSantander);
+    	System.out.printf("La suma de los saldos de las cuentas del banco Santander es %.2f€.\n", CuentaSantander.getSumaSaldos(cuentasSantander));
+    	System.out.println("El número de cuentas del banco Santander es "+CuentaSantander.getNumCuentas()+".");
+    	CuentaSantander.cuentaConSaldoMax(cuentasSantander);
     }
 }

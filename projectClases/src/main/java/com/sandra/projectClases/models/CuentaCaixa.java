@@ -49,8 +49,7 @@ public final class CuentaCaixa extends Cuenta{
 						datosLinea.get(1), //nombre_cliente
 						LocalDate.parse(datosLinea.get(2), DateTimeFormatter.ofPattern("dd/MM/yyyy")), // fechaNacimiento
 						datosLinea.get(3), // codigo_pais
-						Double.parseDouble(datosLinea.get(4)), // saldo
-						null)); // nivelCatalan, en los ficheros no aparece
+						Double.parseDouble(datosLinea.get(4)))); // saldo
 			}
 		} catch (NoSuchFileException e) {
 			System.err.println("No existe el archivo "+e.getMessage());

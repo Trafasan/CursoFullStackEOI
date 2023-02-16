@@ -1,19 +1,14 @@
 package com.sandra.projectClases.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
 import com.sandra.projectClases.models.Cuenta;
 import com.sandra.projectClases.models.CuentaCaixa;
 import com.sandra.projectClases.models.CuentaSabadell;
 import com.sandra.projectClases.models.CuentaSantander;
 
-/**
- * Hello world!
- *
- */
 public class Methods {	
 	
 	public static List<Cuenta> unirListas(List<CuentaCaixa> datosCaixa, List<CuentaSabadell> datosSabadell, List<CuentaSantander> datosSantander) {
@@ -24,21 +19,40 @@ public class Methods {
 		return cuentasBancos;
 	}
 	
-	// Retocar estos métodos para que se asemeje a lo que pide el ejercicio
-	public static double sumaSaldos(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {
-		return datosCaixa.get(dni).getSaldo()+datosSabadell.get(dni).getSaldo()+datosSantander.get(dni).getSaldo();
+	public static void impresionListaUnida(List<Cuenta> cuentasBancos) {
+		for (Cuenta cuenta:cuentasBancos) {
+			if (cuenta instanceof CuentaCaixa) System.out.println("Cuenta de CaixaBank\n"+cuenta);
+			else if (cuenta instanceof CuentaSabadell) System.out.println("Cuenta del banco Sabadell\n"+cuenta);
+			else System.out.println("Cuenta del banco Santander\n"+cuenta);
+		}
 	}
 	
-	public static List<Double> listaSaldosMin(List<String> productos) {
-		List<Double> saldosMin = new ArrayList<Double>();
-		for (int i=0; i<productos.size(); i++) {
-			saldosMin.add(Double.parseDouble(productos.get(i)));
-			productos.remove(i);
-		}
-		return saldosMin;
+	private static int numeroAleatorio(List<Cuenta> cuentasBancos) {
+		return new Random().nextInt(cuentasBancos.size());
+		
 	}
-
-	public static double saldoMinimoMasAlto(List<Double> saldosMin) {
-		return Collections.max(saldosMin);
+	public static void borrarCuenta(List<Cuenta> cuentasBancos) {
+		cuentasBancos.remove(numeroAleatorio(cuentasBancos));
+	}
+	
+	public static void impresionCuentaBorrada(List<Cuenta> cuentasBancos, List<CuentaCaixa> cuentasCaixa, List<CuentaSabadell> cuentasSabadell, List<CuentaSantander> cuentasSantander) {
+		if (!cuentasBancos.containsAll(cuentasCaixa)) {
+    		System.out.println("Se ha borrado esta cuenta de CaixaBank:");
+    		for (CuentaCaixa cuenta:cuentasCaixa)
+    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta)) 
+    				System.out.println(cuenta);
+    	}
+    	else if (!cuentasBancos.containsAll(cuentasSabadell)) {
+    		System.out.println("Se ha borrado esta cuenta del banco Sabadell:");
+    		for (CuentaSabadell cuenta:cuentasSabadell)
+    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta))
+    				System.out.println(cuenta);
+    	}
+    	else {
+    		System.out.println("Se ha borrado esta cuenta del banco Santander:");
+    		for (CuentaSantander cuenta:cuentasSantander)
+    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta))
+    				System.out.println(cuenta);
+    	}
 	}
 }

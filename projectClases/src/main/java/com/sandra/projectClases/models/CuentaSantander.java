@@ -8,12 +8,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CuentaSantander extends Cuenta{
-	
+	private static double sumaSaldos;
 	private boolean residenteSantander;
-	private static int numCuentas; // Contador interno en la clase que almacena el número de cuentas que se crean del banco
+	private static int numCuentas = 0; // Contador interno en la clase que almacena el número de cuentas que se crean del banco
+	{
+		numCuentas++;
+	}
+
+	public static double getSumaSaldos(List<CuentaSantander> cuentasSantander) {
+		cuentasSantander.forEach(e->sumaSaldos+=e.getSaldo());
+		return sumaSaldos;
+	}
 
 	public boolean isResidenteSantander() {
 		return residenteSantander;
@@ -26,20 +35,23 @@ public class CuentaSantander extends Cuenta{
 	public static int getNumCuentas() {
 		return numCuentas;
 	}
-
-	public static void setNumCuentas(int numCuentas) {
-		CuentaSantander.numCuentas = numCuentas;
-	}
 	
 	public CuentaSantander() {
 		super();
 	}
-
+	
 	public CuentaSantander(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
 			double saldo) {
 		super(dni_cif, nombre_cliente, fechaNacimientoCliente, codigo_pais, saldo);
+		this.residenteSantander = false;
 	}
-	
+
+	public CuentaSantander(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
+			double saldo, boolean residenteSantander) {
+		super(dni_cif, nombre_cliente, fechaNacimientoCliente, codigo_pais, saldo);
+		this.residenteSantander = residenteSantander;
+	}
+
 	public static List<CuentaSantander> getListCuentaSantander(String nombreFichero) {
 		Path archivo = getRutaFichero(nombreFichero);
 		List<CuentaSantander> datosBanco = new ArrayList<>();
@@ -61,6 +73,19 @@ public class CuentaSantander extends Cuenta{
 		}
 		return datosBanco;
 	}
+	
+	private static double saldoMaxMasAlto(List<CuentaSantander> cuentasSantander) {
+		List<Double> saldosMax = new ArrayList<Double>();
+		cuentasSantander.forEach(e->saldosMax.add(e.getSaldo()));
+		return Collections.max(saldosMax);
+	}
+	
+	public static void cuentaConSaldoMax(List<CuentaSantander> cuentasSantander) {
+		if (cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).toList().size()==1) System.out.println("Cuenta del banco Santander con el saldo más alto:");
+		else System.out.println("Cuentas del banco Santander con los saldos más altos:");
+		cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).forEach(e->System.out.println(e));
+	}
+
 
 	@Override
 	public String toString() {
@@ -68,6 +93,7 @@ public class CuentaSantander extends Cuenta{
 				+ "\nNombre del cliente: "+getNombre_cliente()
 				+ "\nFecha de nacimiento del cliente: "+getFechaNacimientoCliente().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 				+ "\nCódigo del país: "+getCodigo_pais()
-				+ "\nSaldo: "+String.format("%.2f", getSaldo())+"€\n";
+				+ "\nSaldo: "+String.format("%.2f", getSaldo())+"€"
+				+ "\n¿Residente en Santander? "+(residenteSantander?"Sí":"No")+"\n";
 	}
 }

@@ -24,6 +24,12 @@ public final class CuentaSabadell extends Cuenta{
 	public CuentaSabadell() {
 		super();
 	}
+	
+	public CuentaSabadell(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
+			double saldo) {
+		super(dni_cif, nombre_cliente, fechaNacimientoCliente, codigo_pais, saldo);
+		this.nivelCatalan = NivelCatalan.Bajo;
+	}
 
 	public CuentaSabadell(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
 			double saldo, NivelCatalan nivelCatalan) {
@@ -43,8 +49,7 @@ public final class CuentaSabadell extends Cuenta{
 						datosLinea.get(1), //nombre_cliente
 						LocalDate.parse(datosLinea.get(2), DateTimeFormatter.ofPattern("dd/MM/yyyy")), // fechaNacimiento
 						datosLinea.get(3), // codigo_pais
-						Double.parseDouble(datosLinea.get(4)), // saldo
-						null)); // nivelCatalan, en los ficheros no aparece
+						Double.parseDouble(datosLinea.get(4)))); // saldo
 			}
 		} catch (NoSuchFileException e) {
 			System.err.println("No existe el archivo "+e.getMessage());
@@ -53,7 +58,7 @@ public final class CuentaSabadell extends Cuenta{
 		}
 		return datosBanco;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "DNI-CIF: "+getDni_cif()

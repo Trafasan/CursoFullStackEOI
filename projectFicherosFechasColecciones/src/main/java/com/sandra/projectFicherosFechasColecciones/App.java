@@ -8,12 +8,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
-import com.sandra.projectFicherosFechasColecciones.utils.UICuenta;
+import com.sandra.projectFicherosFechasColecciones.utils.Methods;
 
-/**
- * Hello world!
- *
- */
 public class App {
 	/*
 	 * Somos una entidad financiera que trabaja con varios bancos y que quiere
@@ -62,17 +58,17 @@ public class App {
 		Scanner sc = new Scanner (System.in);
 		System.out.print("Introduzca su DNI-CIF: ");
 		String dni = sc.nextLine();
-		Map<String, Cuenta> datosCaixa = UICuenta.getMap(nombreFicheroCaixa);
-		Map<String, Cuenta> datosSabadell = UICuenta.getMap(nombreFicheroSabadell);
-		Map<String, Cuenta> datosSantander = UICuenta.getMap(nombreFicheroSantander);
+		Map<String, Cuenta> datosCaixa = Methods.getMap(nombreFicheroCaixa);
+		Map<String, Cuenta> datosSabadell = Methods.getMap(nombreFicheroSabadell);
+		Map<String, Cuenta> datosSantander = Methods.getMap(nombreFicheroSantander);
 		if (datosCaixa.containsKey(dni)) {
-			UICuenta.mensajeBienvenidaConFecha(datosCaixa, dni);
-			Set<LocalDate> fechasNacimiento = UICuenta.fechasNacimiento(datosCaixa, datosSabadell, datosSantander, dni);
-			LocalDate fechaCorrecta = UICuenta.fechaCorrecta(fechasNacimiento, sc);
+			Methods.mensajeBienvenidaConFecha(datosCaixa, dni);
+			Set<LocalDate> fechasNacimiento = Methods.fechasNacimiento(datosCaixa, datosSabadell, datosSantander, dni);
+			LocalDate fechaCorrecta = Methods.fechaCorrecta(fechasNacimiento, sc);
 			int edad = Period.between(fechaCorrecta, LocalDate.now()).getYears();
-			double sumaSaldos = UICuenta.sumaSaldos(datosCaixa, datosSabadell, datosSantander, dni);
-			List<String> productos = UICuenta.buscarProductos("productosofertados.txt", edad, sumaSaldos);
-			System.out.println(UICuenta.ofrecerProducto(productos));
+			double sumaSaldos = Methods.sumaSaldos(datosCaixa, datosSabadell, datosSantander, dni);
+			List<String> productos = Methods.buscarProductos("productosofertados.txt", edad, sumaSaldos);
+			if (productos != null) System.out.println(Methods.ofrecerProducto(productos));
 		}
 		else System.err.println("No se ha reconocido el DNI-CIF introducido.");
 		sc.close();

@@ -25,7 +25,7 @@ import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
  * Hello world!
  *
  */
-public class UICuenta {	
+public class Methods {	
 	final private static String ruta = "ficheros";
 	
 	private static Path getRutaFichero(String nombreFichero) {

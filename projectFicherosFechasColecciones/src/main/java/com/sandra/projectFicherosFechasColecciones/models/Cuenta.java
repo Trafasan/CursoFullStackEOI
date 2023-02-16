@@ -1,6 +1,7 @@
 package com.sandra.projectFicherosFechasColecciones.models;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Cuenta {
 	// Atributos en el orden en el que se encuentran en los ficheros
@@ -52,6 +53,30 @@ public class Cuenta {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Cuenta [nombre_cliente=" + nombre_cliente + ", fechaNacimientoCliente=" + fechaNacimientoCliente
+				+ ", codigo_pais=" + codigo_pais + ", saldo=" + saldo + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo_pais, fechaNacimientoCliente, nombre_cliente);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cuenta other = (Cuenta) obj;
+		return Objects.equals(codigo_pais, other.codigo_pais)
+				&& Objects.equals(fechaNacimientoCliente, other.fechaNacimientoCliente)
+				&& Objects.equals(nombre_cliente, other.nombre_cliente);
+	}
 	
 }

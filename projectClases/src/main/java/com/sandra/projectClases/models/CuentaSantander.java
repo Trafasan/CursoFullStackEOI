@@ -82,7 +82,7 @@ public class CuentaSantander extends Cuenta{
 	
 	public static void cuentaConSaldoMax(List<CuentaSantander> cuentasSantander) {
 		if (cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).toList().size()==1) System.out.println("Cuenta del banco Santander con el saldo más alto:");
-		else System.out.println("Cuentas del banco Santander con los saldos más altos:");
+		else System.out.println("Cuentas del banco Santander con el saldo más alto:");
 		cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).forEach(e->System.out.println(e));
 	}
 

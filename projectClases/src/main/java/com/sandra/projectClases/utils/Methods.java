@@ -39,19 +39,19 @@ public class Methods {
 		if (!cuentasBancos.containsAll(cuentasCaixa)) {
     		System.out.println("Se ha borrado esta cuenta de CaixaBank:");
     		for (CuentaCaixa cuenta:cuentasCaixa)
-    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta)) 
+    			if (!cuentasBancos.stream().filter(e->e instanceof CuentaCaixa).toList().contains(cuenta)) 
     				System.out.println(cuenta);
     	}
     	else if (!cuentasBancos.containsAll(cuentasSabadell)) {
     		System.out.println("Se ha borrado esta cuenta del banco Sabadell:");
     		for (CuentaSabadell cuenta:cuentasSabadell)
-    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta))
+    			if (!cuentasBancos.stream().filter(e->e instanceof CuentaSabadell).toList().contains(cuenta))
     				System.out.println(cuenta);
     	}
     	else {
     		System.out.println("Se ha borrado esta cuenta del banco Santander:");
     		for (CuentaSantander cuenta:cuentasSantander)
-    			if (!cuentasBancos.stream().filter(e->e.getClass().equals(cuenta.getClass())).toList().contains(cuenta))
+    			if (!cuentasBancos.stream().filter(e->e instanceof CuentaSantander).toList().contains(cuenta))
     				System.out.println(cuenta);
     	}
 	}

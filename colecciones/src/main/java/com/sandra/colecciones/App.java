@@ -3,20 +3,19 @@ package com.sandra.colecciones;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.sandra.colecciones.ejercicio02.Empleado;
+import com.sandra.colecciones.ejercicio02.Empresa;
+import com.sandra.colecciones.ejercicio03.Persona03;
 import com.sandra.colecciones.entidades.Persona;
 
-/**
- * Hello world!
- *
- */
 public class App {
 	
 	public static void ejemplosListas() {
@@ -132,10 +131,87 @@ public class App {
 		// numeros.forEach(e->System.out.println(e));
 	}
 	
+	public static void ejercicio2() {
+		/*
+		 * A partir del apartado 4 de los ejercicios de herencia (Empresa con
+		 * empleados). Cambia el array de empleados por una lista. A partir de ahora no
+		 * necesitarás el atributo numEmpleados, por lo que elimínalo.
+		 */
+		Empresa empresa = new Empresa();
+		Collections.addAll(empresa.getEmpleados(), new Empleado("Fran", 10000), new Empleado("Dani", 20000), new Empleado("Paco", 10000));
+		Empresa copia = new Empresa(empresa);
+		copia.getEmpleados().get(0).setNombre("Francisco");
+		copia.getDireccion().setNumero(10);
+		copia.getEmpleados().add(new Empleado("Nuevo", 30000));
+		
+		System.out.println("Empresa original:");
+		System.out.println(empresa);
+		System.out.println("Empresa copia:");
+		System.out.println(copia);
+	}
+	
+	public static void ejercicio3() {
+		/*
+		 * Crea un mapa donde la clave sea un dni y el valor sera un objeto del tipo Persona
+		 * (con los atributos nombre y edad). Añade 3 personas con sus correspondientes dnis
+		 * como clave. Finalmente recórrelo y muestra las personas con su dni.
+		 */
+		Map<String, Persona03> personas = new HashMap<>();
+		personas.put("12345678A", new Persona03("Sandra", 23));
+		personas.put("98765432Z", new Persona03("Jorge", 25));
+		personas.put("95340762J", new Persona03("María", 24));
+		for(String dni: personas.keySet()) System.out.println("El dni "+dni+" corresponde a la siguiente persona:\n"+personas.get(dni));
+	}
+	
+	public static void ejercicio4() {
+		/*
+		 * Crea una lista de números enteros con varios valores. A continuación genera
+		 * otra lista que contenga los números de la original divididos entre 2, y
+		 * después borra aquellos que sean impares.
+		 */
+		List<Integer> numeros = new ArrayList<>();
+		Collections.addAll(numeros, 15, 20, 27, 30, 33, 38);
+		System.out.println("Lista de números original: "+numeros);
+		List<Integer> numeros2 = new ArrayList<>(numeros);
+		numeros2.replaceAll(n->n/2);
+		System.out.println("Lista de números dividida entre 2: "+numeros2);
+		numeros2.removeIf(n->n%2!=0);
+		System.out.println("Números pares de la lista anterior: "+numeros2);
+		
+	}
+	
+	public static void ejercicio5() {
+		/*
+		 * Crea un conjunto (Set) de cadenas. Pregunta al usuario que escriba una
+		 * palabra, hasta que escriba la palabra “salir”.
+		 * a. Si la palabra no está en el conjunto añádela
+		 * b. Si ya está en el conjunto, informa al usuario de que está repetida.
+		 * c. Cuando el usuario escriba “salir”, debes mostrar la lista de palabras introducidas.
+		 */
+		Scanner sc = new Scanner (System.in);
+		Set <String> cadenas = new HashSet<>();
+		Collections.addAll(cadenas, "Hola", "Ejercicio", "Listas", "Mapas", "Conjuntos", "Adiós");
+		String cadena;
+		do {
+			System.out.print("Introduzca una cadena: ");
+			cadena = sc.nextLine();
+			if (cadena.equalsIgnoreCase("salir")) cadenas.forEach(e->System.out.println(e));
+			else {
+				if(cadenas.contains(cadena)) System.err.println("La cadena "+cadena+" ya se encuentra en el conjunto.");
+				else cadenas.add(cadena);
+			}
+		} while (!cadena.equalsIgnoreCase("salir"));
+		sc.close();
+	}
+	
     public static void main(String[] args) {
         // ejemplosListas();
     	// ejemploMap();
     	// ejemploSet();
-    	ejercicio1();
+    	// ejercicio1();
+    	// ejercicio2();
+    	// ejercicio3();
+    	// ejercicio4();
+    	// ejercicio5();
     }
 }

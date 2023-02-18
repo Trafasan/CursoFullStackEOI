@@ -1,21 +1,21 @@
-package ejerciciosHerencia.ejercicio04;
+package com.sandra.colecciones.ejercicio02;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Empresa {
 	private String nombre;
 	private Direccion direccion;
-	private Empleado[] empleados;
-	private static int numEmpleados;
+	private List<Empleado> empleados;
 	
 	public Empresa() {
 		// Si faltan, dará un error NullPointerException
 		direccion = new Direccion();
-		empleados = new Empleado[numEmpleados];
+		empleados = new ArrayList<Empleado>();
 	}
 
-	public Empresa(String nombre, Direccion direccion, Empleado[] empleados) {
+	public Empresa(String nombre, Direccion direccion, List<Empleado> empleados) {
 		super();
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -26,8 +26,8 @@ public class Empresa {
 		super();
 		this.nombre = e.nombre;
 		this.direccion = new Direccion(e.direccion);
-		this.empleados = new Empleado[Empresa.numEmpleados];
-		for (int i=0; i<numEmpleados; i++) if (e.getEmpleados()[i] != null) this.empleados[i] = new Empleado(e.getEmpleados()[i]);
+		this.empleados = new ArrayList<Empleado>();
+		e.getEmpleados().forEach(el->this.empleados.add(new Empleado(el)));
 	}
 
 	public String getNombre() {
@@ -46,26 +46,17 @@ public class Empresa {
 		this.direccion = direccion;
 	}
 
-	public Empleado[] getEmpleados() {
+	public List<Empleado> getEmpleados() {
 		return empleados;
 	}
 
-	public void setEmpleados(Empleado[] empleados) {
+	public void setEmpleados(List<Empleado> empleados) {
 		this.empleados = empleados;
-	}
-
-	public static int getNumEmpleados() {
-		return numEmpleados;
-	}
-
-	public static void setNumEmpleados(int numEmpleados) {
-		Empresa.numEmpleados = numEmpleados;
 	}
 
 	@Override
 	public String toString() {
-		return "Empresa [nombre=" + nombre + ", direccion=" + direccion + ", empleados=" + Arrays.toString(empleados)
-				+ "]";
+		return nombre+"\nDirección:\n"+direccion+"\nLista de empleados:"+empleados;
 	}
 
 	@Override

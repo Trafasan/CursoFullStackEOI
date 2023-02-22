@@ -1,4 +1,4 @@
-package com.sandra.projectClases.models;
+package com.sandra.projectClases.entidades;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class CuentaCaixa extends Cuenta{
+import com.sandra.projectClases.enumerados.NivelCatalan;
+
+public final class CuentaSabadell extends Cuenta{
 	private NivelCatalan nivelCatalan;
 
 	public NivelCatalan getNivelCatalan() {
@@ -21,30 +23,31 @@ public final class CuentaCaixa extends Cuenta{
 		this.nivelCatalan = nivelCatalan;
 	}
 	
-	public CuentaCaixa() {
+	public CuentaSabadell() {
 		super();
+		this.nivelCatalan = NivelCatalan.Bajo;
 	}
-
-	public CuentaCaixa(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
+	
+	public CuentaSabadell(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
 			double saldo) {
 		super(dni_cif, nombre_cliente, fechaNacimientoCliente, codigo_pais, saldo);
 		this.nivelCatalan = NivelCatalan.Bajo;
 	}
-	
-	public CuentaCaixa(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
+
+	public CuentaSabadell(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
 			double saldo, NivelCatalan nivelCatalan) {
 		super(dni_cif, nombre_cliente, fechaNacimientoCliente, codigo_pais, saldo);
 		this.nivelCatalan = nivelCatalan;
 	}
 	
-	public static List<CuentaCaixa> getListCuentaCaixa(String nombreFichero) {
+	public static List<CuentaSabadell> getListCuentaSabadell(String nombreFichero) {
 		Path archivo = getRutaFichero(nombreFichero);
-		List<CuentaCaixa> datosBanco = new ArrayList<>();
+		List<CuentaSabadell> datosBanco = new ArrayList<>();
 		try {
 			List<String> lineas = Files.readAllLines(archivo);
 			for (String linea:lineas) {
 				List<String> datosLinea = new ArrayList<>(Arrays.asList(linea.split(";")));
-				datosBanco.add(new CuentaCaixa(
+				datosBanco.add(new CuentaSabadell(
 						datosLinea.get(0), // dni_cif
 						datosLinea.get(1), //nombre_cliente
 						LocalDate.parse(datosLinea.get(2), DateTimeFormatter.ofPattern("dd/MM/yyyy")), // fechaNacimiento
@@ -58,7 +61,7 @@ public final class CuentaCaixa extends Cuenta{
 		}
 		return datosBanco;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "DNI-CIF: "+getDni_cif()
@@ -68,5 +71,4 @@ public final class CuentaCaixa extends Cuenta{
 				+ "\nSaldo: "+String.format("%.2f", getSaldo())+"€"
 				+ "\nNivel de catalán: "+nivelCatalan+"\n";
 	}
-	
 }

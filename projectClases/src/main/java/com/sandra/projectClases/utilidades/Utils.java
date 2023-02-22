@@ -1,15 +1,15 @@
-package com.sandra.projectClases.utils;
+package com.sandra.projectClases.utilidades;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.sandra.projectClases.models.Cuenta;
-import com.sandra.projectClases.models.CuentaCaixa;
-import com.sandra.projectClases.models.CuentaSabadell;
-import com.sandra.projectClases.models.CuentaSantander;
+import com.sandra.projectClases.entidades.Cuenta;
+import com.sandra.projectClases.entidades.CuentaCaixa;
+import com.sandra.projectClases.entidades.CuentaSabadell;
+import com.sandra.projectClases.entidades.CuentaSantander;
 
-public class Methods {	
+public class Utils {	
 	
 	public static List<Cuenta> unirListas(List<CuentaCaixa> datosCaixa, List<CuentaSabadell> datosSabadell, List<CuentaSantander> datosSantander) {
 		List<Cuenta> cuentasBancos = new ArrayList<Cuenta>();

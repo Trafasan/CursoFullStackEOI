@@ -2,10 +2,8 @@ package com.sandra.projectFicherosFechasColecciones;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
 import com.sandra.projectFicherosFechasColecciones.utils.Methods;
@@ -51,11 +49,14 @@ public class App {
 	 * Se adjuntan datos de 3 bancos (caixa, santander y sabadell) y el fichero de
 	 * productos (productosofertados)
 	 */
-	public static void gestionDatosFicheros() {
-		final String nombreFicheroCaixa = "caixa.txt";
-		final String nombreFicheroSabadell = "sabadell.txt";
-		final String nombreFicheroSantander = "santander.txt";
-		Scanner sc = new Scanner (System.in);
+	private final static String nombreFicheroCaixa = "caixa.txt";
+	private final static String nombreFicheroSabadell = "sabadell.txt";
+	private final static String nombreFicheroSantander = "santander.txt";
+	private final static String nombreFicheroProductos = "productosofertados.txt";
+	private static Scanner sc;
+	
+	public static void main(String[] args) {
+		sc = new Scanner (System.in);
 		System.out.print("Introduzca su DNI-CIF: ");
 		String dni = sc.nextLine();
 		Map<String, Cuenta> datosCaixa = Methods.getMap(nombreFicheroCaixa);
@@ -63,18 +64,12 @@ public class App {
 		Map<String, Cuenta> datosSantander = Methods.getMap(nombreFicheroSantander);
 		if (datosCaixa.containsKey(dni)) {
 			Methods.mensajeBienvenidaConFecha(datosCaixa, dni);
-			Set<LocalDate> fechasNacimiento = Methods.fechasNacimiento(datosCaixa, datosSabadell, datosSantander, dni);
-			LocalDate fechaCorrecta = Methods.fechaCorrecta(fechasNacimiento, sc);
+			LocalDate fechaCorrecta = Methods.fechaCorrecta(datosCaixa, datosSabadell, datosSantander, dni);
 			int edad = Period.between(fechaCorrecta, LocalDate.now()).getYears();
 			double sumaSaldos = Methods.sumaSaldos(datosCaixa, datosSabadell, datosSantander, dni);
-			List<String> productos = Methods.buscarProductos("productosofertados.txt", edad, sumaSaldos);
-			if (productos != null) System.out.println(Methods.ofrecerProducto(productos));
+			System.out.println(Methods.ofrecerProducto(nombreFicheroProductos, edad, sumaSaldos));
 		}
 		else System.err.println("No se ha reconocido el DNI-CIF introducido.");
 		sc.close();
-	}
-	
-	public static void main(String[] args) {
-		gestionDatosFicheros();
     }
 }

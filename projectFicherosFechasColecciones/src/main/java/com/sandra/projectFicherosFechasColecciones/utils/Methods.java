@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
 
@@ -26,7 +27,8 @@ import com.sandra.projectFicherosFechasColecciones.models.Cuenta;
  *
  */
 public class Methods {	
-	final private static String ruta = "ficheros";
+	private final static String ruta = "ficheros";
+	private static Scanner sc;
 	
 	private static Path getRutaFichero(String nombreFichero) {
 		return Paths.get(ruta, nombreFichero);
@@ -71,27 +73,29 @@ public class Methods {
 		return datosCliente.get(dni).getFechaNacimientoCliente();
 	}
 	
-	public static Set<LocalDate> fechasNacimiento(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {
+	private static Set<LocalDate> fechasNacimiento(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {
 		Set<LocalDate> fechasNacimiento = new HashSet<>();
 		Collections.addAll(fechasNacimiento, fechaNacimiento(datosCaixa, dni), fechaNacimiento(datosSabadell, dni), fechaNacimiento(datosSantander, dni));
 		return fechasNacimiento;
 	}
 	
-	public static LocalDate fechaCorrecta(Set<LocalDate> fechasNacimiento, Scanner sc) {
+	public static LocalDate fechaCorrecta(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {
+		Set<LocalDate> fechasNacimiento = fechasNacimiento(datosCaixa, datosSabadell, datosSantander, dni);
 		if(fechasNacimiento.size() != 1) {
+			sc = new Scanner (System.in);
 			System.out.println("Se han encontrado diferentes fechas de nacimiento en sus cuentas:");
 			fechasNacimiento.forEach(e->System.out.println(e.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
 			System.out.print("Eliga cuál de ellas es la correcta: ");
 			return LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
-		else return ((LocalDate[]) fechasNacimiento.toArray(new LocalDate[0]))[0]; // Probar con 222
+		else return fechasNacimiento.stream().collect(Collectors.toList()).get(0);
 	}
 	
 	public static double sumaSaldos(Map<String, Cuenta> datosCaixa, Map<String, Cuenta> datosSabadell, Map<String, Cuenta> datosSantander, String dni) {
 		return datosCaixa.get(dni).getSaldo()+datosSabadell.get(dni).getSaldo()+datosSantander.get(dni).getSaldo();
 	}
 	
-	public static List<String> buscarProductos(String nombreFichero, int edad, double saldo) {
+	private static List<String> buscarProductos(String nombreFichero, int edad, double saldo) {
 		Path archivo = getRutaFichero(nombreFichero);
 		List<String> productos = new ArrayList<String>();
 		try {
@@ -102,10 +106,7 @@ public class Methods {
 				int eMax = Integer.parseInt(datosProducto.get(1));
 				double sMin = Double.parseDouble(datosProducto.get(2));
 				double sMax = Double.parseDouble(datosProducto.get(3));
-				if (eMin<=edad && edad<=eMax && sMin<=saldo && saldo<=sMax) {
-					productos.add(datosProducto.get(2));
-					productos.add(datosProducto.get(4));
-				}
+				if (eMin<=edad && edad<=eMax && sMin<=saldo && saldo<=sMax) Collections.addAll(productos, datosProducto.get(2), datosProducto.get(4));
 			}
 			return productos;
 		} catch (NoSuchFileException e) {
@@ -128,7 +129,8 @@ public class Methods {
 		return Collections.max(saldosMin);
 	}
 	
-	public static String ofrecerProducto(List<String> productos) {
+	public static String ofrecerProducto(String nombreFichero, int edad, double saldo) {
+		List<String> productos = buscarProductos(nombreFichero, edad, saldo);
 		if (productos.size() != 0) {
 			List<Double> saldosMin = listaSaldosMin(productos); // Divide en dos la lista
 			String producto = productos.get(0);

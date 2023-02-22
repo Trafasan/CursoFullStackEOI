@@ -1,4 +1,4 @@
-package com.sandra.projectClases.models;
+package com.sandra.projectClases.entidades;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -96,10 +96,6 @@ public abstract class Cuenta {
 		return Objects.equals(codigo_pais, other.codigo_pais) && Objects.equals(dni_cif, other.dni_cif)
 				&& Objects.equals(fechaNacimientoCliente, other.fechaNacimientoCliente)
 				&& Objects.equals(nombre_cliente, other.nombre_cliente);
-	}
-	
-	public int compare(Cuenta c1, Cuenta c2) {
-		return Integer.parseInt(c1.getDni_cif())-Integer.parseInt(c2.getDni_cif());
 	}
 	
 }

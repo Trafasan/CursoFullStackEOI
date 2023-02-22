@@ -1,4 +1,4 @@
-package com.sandra.projectClases.models;
+package com.sandra.projectClases.entidades;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,16 +12,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class CuentaSantander extends Cuenta{
-	private static double sumaSaldos;
 	private boolean residenteSantander;
 	private static int numCuentas = 0; // Contador interno en la clase que almacena el número de cuentas que se crean del banco
-	{
+	{ // Función anónima
 		numCuentas++;
-	}
-
-	public static double getSumaSaldos(List<CuentaSantander> cuentasSantander) {
-		cuentasSantander.forEach(e->sumaSaldos+=e.getSaldo());
-		return sumaSaldos;
 	}
 
 	public boolean isResidenteSantander() {
@@ -36,8 +30,13 @@ public class CuentaSantander extends Cuenta{
 		return numCuentas;
 	}
 	
+	public static void setNumCuentas(int numCuentas) {
+		CuentaSantander.numCuentas = numCuentas;
+	}
+
 	public CuentaSantander() {
 		super();
+		this.residenteSantander = false;
 	}
 	
 	public CuentaSantander(String dni_cif, String nombre_cliente, LocalDate fechaNacimientoCliente, String codigo_pais,
@@ -72,6 +71,10 @@ public class CuentaSantander extends Cuenta{
 			System.err.println("Error leyendo el archivo " + archivo);
 		}
 		return datosBanco;
+	}
+
+	public static double getSumaSaldos(List<CuentaSantander> cuentasSantander) {
+		return cuentasSantander.stream().mapToDouble(e->e.getSaldo()).sum();
 	}
 	
 	private static double saldoMaxMasAlto(List<CuentaSantander> cuentasSantander) {

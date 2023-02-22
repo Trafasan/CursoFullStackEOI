@@ -2,11 +2,11 @@ package com.sandra.projectClases;
 
 import java.util.List;
 
-import com.sandra.projectClases.models.Cuenta;
-import com.sandra.projectClases.models.CuentaCaixa;
-import com.sandra.projectClases.models.CuentaSabadell;
-import com.sandra.projectClases.models.CuentaSantander;
-import com.sandra.projectClases.utils.Methods;
+import com.sandra.projectClases.entidades.Cuenta;
+import com.sandra.projectClases.entidades.CuentaCaixa;
+import com.sandra.projectClases.entidades.CuentaSabadell;
+import com.sandra.projectClases.entidades.CuentaSantander;
+import com.sandra.projectClases.utilidades.Utils;
 
 public class App {
 	/*
@@ -58,10 +58,10 @@ public class App {
     	List<CuentaCaixa> cuentasCaixa = CuentaCaixa.getListCuentaCaixa(nombreFicheroCaixa);
     	List<CuentaSabadell> cuentasSabadell = CuentaSabadell.getListCuentaSabadell(nombreFicheroSabadell);
     	List<CuentaSantander> cuentasSantander = CuentaSantander.getListCuentaSantander(nombreFicheroSantander);
-    	List<Cuenta> cuentasBancos = Methods.unirListas(cuentasCaixa, cuentasSabadell, cuentasSantander);
-    	Methods.impresionListaUnida(cuentasBancos);
-    	Methods.borrarCuenta(cuentasBancos);
-    	Methods.impresionCuentaBorrada(cuentasBancos, cuentasCaixa, cuentasSabadell, cuentasSantander);
+    	List<Cuenta> cuentasBancos = Utils.unirListas(cuentasCaixa, cuentasSabadell, cuentasSantander);
+    	Utils.impresionListaUnida(cuentasBancos);
+    	Utils.borrarCuenta(cuentasBancos);
+    	Utils.impresionCuentaBorrada(cuentasBancos, cuentasCaixa, cuentasSabadell, cuentasSantander);
     	System.out.printf("La suma de los saldos de las cuentas del banco Santander es %.2f€.\n", CuentaSantander.getSumaSaldos(cuentasSantander));
     	System.out.println("El número de cuentas del banco Santander es "+CuentaSantander.getNumCuentas()+".");
     	CuentaSantander.cuentaConSaldoMax(cuentasSantander);

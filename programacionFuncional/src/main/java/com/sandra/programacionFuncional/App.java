@@ -11,6 +11,7 @@ import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.sandra.programacionFuncional.ejercicios.Ejercicios;
 import com.sandra.programacionFuncional.entidades.Usuario;
 public class App {
 	
@@ -240,8 +241,8 @@ public class App {
 		return nombre.toUpperCase();
 	}
 	
-    public static void main(String[] args) {
-    	poblar();  // Da datos iniciales a la lista
+	public static void pruebas() {
+    	// poblar();  // Da datos iniciales a la lista
     	// forEach();
     	// filter();
     	// map();
@@ -259,6 +260,17 @@ public class App {
     	// summarizingDouble();
     	// reduce();
     	// joining();
-    	parallelStream();
+    	// parallelStream();
+	}
+	
+    public static void main(String[] args) {
+    	// pruebas();
+    	// Ejercicios.ejericicio01();
+    	// Ejercicios.ejericicio02();
+    	// Ejercicios.ejericicio03();
+    	Ejercicios.ejericicio04();
+    	// Ejercicios.ejericicio05();
+    	// Ejercicios.ejericicio06();
+    	// Ejercicios.ejericicio07();
     }
 }

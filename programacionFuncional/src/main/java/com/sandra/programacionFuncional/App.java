@@ -2,6 +2,8 @@ package com.sandra.programacionFuncional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -161,6 +163,83 @@ public class App {
 		}
 	}
 	
+	public static void count() {
+		// Final
+		long numRicos = usuarios.stream().filter(e->e.getSueldo()>40000).count();
+		System.out.println("El número de ricos es "+numRicos);
+	}
+	
+	public static void skipYLimit() {
+		// No finales
+		usuarios.stream().sorted(Comparator.comparingDouble(Usuario::getSueldo).reversed()).skip(2).limit(3).forEach(e->System.out.println(e));
+	}
+	
+	public static void maxMin() {
+		Optional<Usuario> masId = usuarios.stream().max(Comparator.comparingInt(Usuario::getId));
+		if (masId.isPresent()) System.out.println("El usuario con id más alto es: "+masId.get().getNombre());
+		Optional<Usuario> menosId = usuarios.stream().min(Comparator.comparingInt(Usuario::getId));
+		if (menosId.isPresent()) System.out.println("El usuario con id más alto es: "+menosId.get().getNombre());
+	}
+	
+	public static void distinct() {
+		// No final
+		long nUsuariosDistintos = usuarios.stream().distinct().count();
+		System.out.println("El número de usuarios distintos es "+nUsuariosDistintos);
+		// List<Usuario> usuariosDistintos = usuarios.stream().distinct().collect(Collectors.toList());
+		System.out.println("La lista de sueldos distintos es: ");
+		usuarios.stream().mapToDouble(Usuario::getSueldo).sorted().distinct().forEach(e->System.out.println(e));
+		System.out.println("La lista de nombres distintos es: ");
+		usuarios.stream().map(Usuario::getNombre).distinct().forEach(e->System.out.println(e));
+	}
+	
+	public static void summarizingDouble() {
+		// Final
+		DoubleSummaryStatistics estadisticas = usuarios.stream().collect(Collectors.summarizingDouble(Usuario::getSueldo));
+		System.out.println("Media: "+estadisticas.getAverage());
+		System.out.println("Máximo: "+estadisticas.getMax());
+		System.out.println("Mínimo: "+estadisticas.getMin());
+		System.out.println("Suma: "+estadisticas.getSum());
+		System.out.println("Número: "+estadisticas.getCount());
+	}
+	
+	public static void reduce() {
+		// Final
+		int idsMultiplicados = usuarios.stream().mapToInt(e->e.getId()).reduce(1, (a,b)->a*b);
+		System.out.println("La multiplicación de los id's es "+idsMultiplicados);
+		String nombres = usuarios.stream().map(e->e.getNombre()).reduce("", (a,b)->a.concat(b).concat("\n"));
+		System.out.println(nombres);
+	}
+	
+	public static void joining() {
+		// Final
+		String nombresDistintos = usuarios.stream().map(e->e.getNombre().toLowerCase()).distinct().sorted().collect(Collectors.joining(", "));
+		System.out.println(nombresDistintos);
+	}
+	
+	/**
+	 * Es igual a steam pero utilizando procesamiento paralelo.<br>
+	 * Nos aprovechamos de los núcleos de nuestro ordenador.
+	 */
+	public static void parallelStream() {
+		long tiempoInicial = System.currentTimeMillis();
+		usuarios.forEach(e->convertirMayusculas(e.getNombre()));
+		long tiempoFinal = System.currentTimeMillis();
+		System.out.println("El tiempo de la operación ha sido: "+(tiempoFinal-tiempoInicial));
+		tiempoInicial = System.currentTimeMillis();
+		usuarios.parallelStream().forEach(e->convertirMayusculas(e.getNombre()));
+		tiempoFinal = System.currentTimeMillis();
+		System.out.println("El tiempo de la operación en paralelo ha sido: "+(tiempoFinal-tiempoInicial));
+	}
+	
+	public static String convertirMayusculas(String nombre) {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return nombre.toUpperCase();
+	}
+	
     public static void main(String[] args) {
     	poblar();  // Da datos iniciales a la lista
     	// forEach();
@@ -172,6 +251,14 @@ public class App {
     	// flatMap();
     	// peek();
     	// partitioningBy();
-    	groupingBy();
+    	// groupingBy();
+    	// count();
+    	// skipYLimit();
+    	// maxMin();
+    	// distinct();
+    	// summarizingDouble();
+    	// reduce();
+    	// joining();
+    	parallelStream();
     }
 }

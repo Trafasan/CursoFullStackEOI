@@ -62,8 +62,6 @@ public class App {
     	Utils.impresionListaUnida(cuentasBancos);
     	Utils.borrarCuenta(cuentasBancos);
     	Utils.impresionCuentaBorrada(cuentasBancos, cuentasCaixa, cuentasSabadell, cuentasSantander);
-    	System.out.printf("La suma de los saldos de las cuentas del banco Santander es %.2f€.\n", CuentaSantander.getSumaSaldos(cuentasSantander));
-    	System.out.println("El número de cuentas del banco Santander es "+CuentaSantander.getNumCuentas()+".");
-    	CuentaSantander.cuentaConSaldoMax(cuentasSantander);
+    	CuentaSantander.estadisticasCuentas(cuentasSantander);
     }
 }

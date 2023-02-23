@@ -8,8 +8,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CuentaSantander extends Cuenta{
 	private boolean residenteSantander;
@@ -73,20 +75,12 @@ public class CuentaSantander extends Cuenta{
 		return datosBanco;
 	}
 
-	public static double getSumaSaldos(List<CuentaSantander> cuentasSantander) {
-		return cuentasSantander.stream().mapToDouble(e->e.getSaldo()).sum();
-	}
-	
-	private static double saldoMaxMasAlto(List<CuentaSantander> cuentasSantander) {
-		List<Double> saldosMax = new ArrayList<Double>();
-		cuentasSantander.forEach(e->saldosMax.add(e.getSaldo()));
-		return Collections.max(saldosMax);
-	}
-	
-	public static void cuentaConSaldoMax(List<CuentaSantander> cuentasSantander) {
-		if (cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).toList().size()==1) System.out.println("Cuenta del banco Santander con el saldo más alto:");
-		else System.out.println("Cuentas del banco Santander con el saldo más alto:");
-		cuentasSantander.stream().filter(e->e.getSaldo() == saldoMaxMasAlto(cuentasSantander)).forEach(e->System.out.println(e));
+	public static void estadisticasCuentas(List<CuentaSantander> cuentasSantander) {
+		DoubleSummaryStatistics estadisticas = cuentasSantander.stream().collect(Collectors.summarizingDouble(CuentaSantander::getSaldo));
+		System.out.printf("La suma de los saldos de las cuentas del banco Santander es %.2f€.\n", estadisticas.getSum());
+    	System.out.println("El número de cuentas del banco Santander es "+estadisticas.getCount()+".");
+		System.out.println("Cuenta del banco Santander con el saldo más alto:");
+		cuentasSantander.stream().sorted(Comparator.comparingDouble(CuentaSantander::getSaldo).reversed()).limit(1).forEach(System.out::println);
 	}
 
 

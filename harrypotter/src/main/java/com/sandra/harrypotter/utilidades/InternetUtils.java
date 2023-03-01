@@ -1,4 +1,4 @@
-package com.sandra.json.utilidades;
+package com.sandra.harrypotter.utilidades;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InternetUtils {
-	
 	/**
 	 * Recibe una url en formato cadena y devuelve el contenido de esa Url como una
 	 * cadena

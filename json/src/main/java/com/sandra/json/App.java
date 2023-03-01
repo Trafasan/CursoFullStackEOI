@@ -13,7 +13,6 @@ public class App {
 
 	final static String TOKEN_FOOTBALL_DATA = "6bff5b66e01940a4a4730dad785bbab3";
 	static List<Posts> publicaciones = new ArrayList<>();
-	
     public static void main(String[] args) {
         // JsonUtils.leerJsonDesdeFichero("profesor.json");
         /*publicaciones = JsonUtils.leerPostsInternet("https://jsonplaceholder.typicode.com/posts");

@@ -90,7 +90,9 @@ public class App {
     	try {
     		con = DriverManager.getConnection(URI, USER, PASSWORD);
     		st = con.createStatement();
+		    st.executeUpdate("DELETE FROM personaje"); // Solo se utiliza cuando se hacen pruebas para no borrar accidentalmente
     		for(Personaje personaje:personajes) {
+    			personaje.setActor(personaje.getActor().replace("'", "''")); // Esto evita el error al intentar introducir O'Farrell
     			sql = "INSERT INTO personaje("
     					+ "id, name, species, gender, house, dateOfBirth, yearOfBirth, wizard, ancestry,"
     					+ "eyeColour, hairColour, patronus, hogwartsStudent, hogwartsStaff, actor, alive, image"
@@ -112,7 +114,7 @@ public class App {
     					+personaje.getActor()+"','"
     					+((personaje.getAlive())?1:0)+"','"
     					+personaje.getImage()+"');";
-    			System.out.println(sql);
+    			System.out.println(sql); // Solo se utiliza cuando se hacen pruebas para comprobar que funciona correctamente
     		    st.executeUpdate(sql);
     		}
     		st.close();

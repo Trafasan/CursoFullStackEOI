@@ -168,10 +168,10 @@ public class App {
 	}
 	
     public static void main(String[] args){
-    	// asignaturas();
+    	asignaturas();
     	// marca();
     	// sensacine();
-    	List<String> lineasHtml = InternetUtils.readUrlList("https://www.chollometro.com/");
-    	lineasHtml.stream() .forEach(e->System.out.println(e));
+    	// List<String> lineasHtml = InternetUtils.readUrlList("https://www.chollometro.com/");
+    	// lineasHtml.stream() .forEach(e->System.out.println(e));
     }
 }

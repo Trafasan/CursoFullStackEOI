@@ -85,7 +85,7 @@ public class App {
 		int id = Integer.parseInt(sc.nextLine());
 		List<Object> parametros = new ArrayList<>();
 		parametros.add(id);
-		int registros = JdbcUtils.PreparedStatementDML("DELETE FROM tabla1 WHERE id =" + id, parametros);
+		int registros = JdbcUtils.PreparedStatementDML("DELETE FROM tabla1 WHERE id = ?", parametros);
 		System.out.println("Se ha borrado " + registros + " registro");
 		sc.close();
 	}

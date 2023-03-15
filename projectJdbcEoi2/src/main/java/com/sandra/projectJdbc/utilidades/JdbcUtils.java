@@ -11,7 +11,7 @@ import java.util.List;
 public class JdbcUtils {
 	final static String URI = "jdbc:mysql://localhost:3306/eoi2";
 	final static String USER = "root";
-	final static String PASSWORD = "trafasan";
+	final static String PASSWORD = "";
 	
 	public static Connection con;
 	public static Statement st;

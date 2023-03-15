@@ -17,7 +17,7 @@ public class App {
 	static List<Personaje> personajes = new ArrayList<Personaje>();
 	final static String URI = "jdbc:mysql://localhost:3306/harry_potter";
 	final static String USER = "root";
-	final static String PASSWORD = "trafasan";
+	final static String PASSWORD = "";
 	public static Connection con;
 	
     public static List<Personaje> recogerDatosApi() {

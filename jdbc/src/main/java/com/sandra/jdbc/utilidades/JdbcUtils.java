@@ -15,7 +15,7 @@ import com.sandra.jdbc.entidades.Tabla1;
 public class JdbcUtils {
 	final static String URI = "jdbc:mysql://localhost:3306/jdbc";
 	final static String USER = "root";
-	final static String PASSWORD = "trafasan";
+	final static String PASSWORD = "";
 	
 	public static Connection con;
 	public static Statement st;

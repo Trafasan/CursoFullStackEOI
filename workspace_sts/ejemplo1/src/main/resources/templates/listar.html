@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="Mi primera página web">
+    <meta name="keywords" content="HTML, CSS, JavaScript, TypeScript, Angular">
+    <meta name="author" content="Sandra Requena">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+	<div th:if="${usuarios.isEmpty()}">No hay usuarios en la lista</div>
+	<table th:if="${not usuarios.isEmpty()}">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Correo electrónico</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="usuario : ${usuarios}">
+				<td th:text="${usuario.nombre}"></td>
+				<td th:text="${usuario.apellido}"></td>
+				<td th:if="${usuario.email}" th:text="${usuario.email}"></td>
+				<td th:if="!${usuario.email}">El usuario no tiene correo electrónico</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

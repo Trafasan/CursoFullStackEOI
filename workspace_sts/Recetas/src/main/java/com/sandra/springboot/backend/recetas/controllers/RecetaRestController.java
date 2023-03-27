@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.sandra.springboot.backend.recetas.models.entity.Receta;
 import com.sandra.springboot.backend.recetas.models.services.IrecetaService;
@@ -37,7 +38,15 @@ public class RecetaRestController {
 		List<Receta> listaRecetas = new ArrayList<>();
 		Map<String,Object> response = new HashMap<>();
 		try {
-			listaRecetas = recetaService.findAll();
+			listaRecetas = recetaService.findAll()
+					.stream()
+					.map(e -> {
+						Receta receta = new Receta(e);
+						if(receta.getImagen()!=null)
+							receta.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + receta.getImagen());
+						return receta;
+					})
+					.collect(Collectors.toList());
 		} catch (DataAccessException e) {  // Error al acceder a la base de datos
 			response.put("mensaje", "Error al conectar con la base de datos");
 			response.put("error", e.getMessage().concat(":")
@@ -63,6 +72,8 @@ public class RecetaRestController {
 			response.put("mensaje", "La receta con ID ".concat(Integer.toString(id)).concat(" no existe"));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
+		if(receta.getImagen()!=null)
+			receta.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + receta.getImagen());
 		return new ResponseEntity<Receta>(receta, HttpStatus.OK);
 	}
 	
@@ -100,6 +111,8 @@ public class RecetaRestController {
 		}
 		try {
 			recetaNew = recetaService.save(receta);
+			if(receta.getImagen()!=null)
+				recetaNew.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + recetaNew.getImagen());
 		} catch (DataAccessException e) {  // Error al acceder a la base de datos
 			response.put("mensaje", "Error al conectar con la base de datos");
 			response.put("error", e.getMessage().concat(":")
@@ -139,7 +152,15 @@ public class RecetaRestController {
 		// Si llegamos aquí es que el evento que queremos modificar SI existe
 		try {
 			recetaActual.setNombre(receta.getNombre());
-			// Poner el resto de los métodos
+			recetaActual.setTipo(receta.getTipo());
+			recetaActual.setNecesidades(receta.getNecesidades());
+			recetaActual.setIngredientes(receta.getIngredientes());
+			recetaActual.setElaboracion(receta.getElaboracion());
+			recetaActual.setDificultad(receta.getDificultad());
+			if(receta.getImagen()!=null) recetaActual.setImagen(receta.getImagen());
+			recetaUpdated = recetaService.save(recetaActual);
+			if(receta.getImagen()!=null)
+				recetaUpdated.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + recetaUpdated.getImagen());
 		} catch (DataAccessException e) {  // Error al acceder a la base de datos
 			response.put("mensaje", "Error al conectar con la base de datos");
 			response.put("error", e.getMessage().concat(":")

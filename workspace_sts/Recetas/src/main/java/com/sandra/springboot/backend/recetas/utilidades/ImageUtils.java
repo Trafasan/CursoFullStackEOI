@@ -32,6 +32,8 @@ public class ImageUtils {
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 			return "";
+		} catch (IllegalArgumentException e) {
+			return "";			
 		}
 	}
 }

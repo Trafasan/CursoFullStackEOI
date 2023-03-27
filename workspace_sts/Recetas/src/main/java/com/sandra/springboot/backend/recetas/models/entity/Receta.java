@@ -70,6 +70,19 @@ public class Receta implements java.io.Serializable {
 		this.creacion = creacion;
 	}
 
+	public Receta(Receta r) {
+		this.id = r.id;
+		this.usuario = r.usuario;
+		this.nombre = r.nombre;
+		this.tipo = r.tipo;
+		this.necesidades = r.necesidades;
+		this.ingredientes = r.ingredientes;
+		this.elaboracion = r.elaboracion;
+		this.dificultad = r.dificultad;
+		this.imagen = r.imagen;
+		this.creacion = r.creacion;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Le da números consecutivos, un auto-numérico
 	@Column(name = "id", unique = true, nullable = false)
@@ -145,7 +158,7 @@ public class Receta implements java.io.Serializable {
 		this.dificultad = dificultad;
 	}
 
-	@Column(name = "imagen", nullable = false)
+	@Column(name = "imagen")
 	public String getImagen() {
 		return this.imagen;
 	}

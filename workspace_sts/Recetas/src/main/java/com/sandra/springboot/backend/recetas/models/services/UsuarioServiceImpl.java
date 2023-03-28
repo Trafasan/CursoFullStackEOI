@@ -8,15 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sandra.springboot.backend.recetas.models.dao.IusuarioDao;
 import com.sandra.springboot.backend.recetas.models.entity.Usuario;
-import com.sandra.springboot.backend.recetas.utilidades.ImageUtils;
 
 @Service
 public class UsuarioServiceImpl implements IusuarioService {
 	
 	@Autowired
 	private IusuarioDao usuarioDao;
-	
-	private final ImageUtils imageUtils = new ImageUtils();
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -37,10 +34,6 @@ public class UsuarioServiceImpl implements IusuarioService {
 
 	@Override
 	public Usuario save(Usuario usuario) {
-		if(usuario.getImagen()!=null) {
-			String ruta = imageUtils.saveImageBase64("usuarios", usuario.getImagen());
-			usuario.setImagen(ruta);
-		}
 		return usuarioDao.save(usuario);
 	}
 

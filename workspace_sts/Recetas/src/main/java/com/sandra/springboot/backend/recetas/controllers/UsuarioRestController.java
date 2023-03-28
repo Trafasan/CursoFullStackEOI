@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.sandra.springboot.backend.recetas.models.entity.DatosUsuario;
 import com.sandra.springboot.backend.recetas.models.entity.Usuario;
 import com.sandra.springboot.backend.recetas.models.services.IusuarioService;
+import com.sandra.springboot.backend.recetas.utilidades.ImageUtils;
 
 @CrossOrigin(origins = {"*"})
 @RestController
@@ -125,6 +125,8 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
 	}
 	
+	private final ImageUtils imageUtils = new ImageUtils();
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable int id, BindingResult result){
 		Usuario usuarioActual = null;
@@ -155,14 +157,17 @@ public class UsuarioRestController {
 			usuarioActual.setUsuario(usuario.getUsuario());
 			usuarioActual.setCorreo(usuario.getCorreo());
 			usuarioActual.setPassword(usuario.getPassword());
-			if(usuario.getImagen()!=null) usuarioActual.setImagen(usuario.getImagen());
-			usuarioActual.setDatosUsuario(new DatosUsuario(
-					usuario, usuario.getDatosUsuario().getNombre(),
-					usuario.getDatosUsuario().getApellido(),
-					usuario.getDatosUsuario().getTelefono()));
+			if(usuario.getImagen()!=null && usuario.getImagen()!="") {
+				usuarioActual.setImagen(usuario.getImagen());
+				String ruta = imageUtils.saveImageBase64("usuarios", usuario.getImagen());
+				usuario.setImagen(ruta);
+			}
+			usuarioActual.getDatosUsuario().setNombre(usuario.getDatosUsuario().getNombre());
+			usuarioActual.getDatosUsuario().setApellido(usuario.getDatosUsuario().getApellido());
+			usuarioActual.getDatosUsuario().setTelefono(usuario.getDatosUsuario().getTelefono());
 			usuarioActual.setRecetas(usuario.getRecetas());
 			usuarioUpdated = usuarioService.save(usuarioActual);
-			if(usuario.getImagen()!=null)
+			if(usuario.getImagen()!=null && usuario.getImagen()!="")
 				usuarioUpdated.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + usuarioUpdated.getImagen());
 		} catch (DataAccessException e) {  // Error al acceder a la base de datos
 			response.put("mensaje", "Error al conectar con la base de datos");

@@ -19,7 +19,7 @@ public class ImageUtils {
 		String base64 = parts.length > 1 ? parts[1] : parts[0];
 		String fileName = System.currentTimeMillis() + ".png";
 		BufferedImage image;
-		byte[] imageByte = Base64.getDecoder().decode(base64);
+		byte[] imageByte = Base64.getMimeDecoder().decode(base64);
 		try {
 			Path pathDir = Paths.get("public", "images", dir);
 			if (!Files.exists(pathDir)) {

@@ -16,6 +16,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -36,6 +39,8 @@ public class Usuario implements java.io.Serializable {
 	private DatosUsuario datosUsuario;
 	@JsonIgnoreProperties("usuario")
 	private Set<Receta> recetas = new HashSet<Receta>(0);
+	@JsonIgnoreProperties({"usuario", "usuarios"})
+	private Set<Receta> recetas_seguidas = new HashSet<Receta>(0);
 
 	public Usuario() {
 	}
@@ -47,7 +52,7 @@ public class Usuario implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Usuario(int id, String usuario, String correo, String password, String imagen, DatosUsuario datosUsuario,  Set<Receta> recetas) {
+	public Usuario(int id, String usuario, String correo, String password, String imagen, DatosUsuario datosUsuario,  Set<Receta> recetas,  Set<Receta> recetas_seguidas) {
 		this.id = id;
 		this.usuario = usuario;
 		this.correo = correo;
@@ -55,6 +60,7 @@ public class Usuario implements java.io.Serializable {
 		this.imagen = imagen;
 		this.datosUsuario = datosUsuario;
 		this.recetas = recetas;
+		this.recetas_seguidas = recetas_seguidas;
 	}
 
 	public Usuario(Usuario u) {
@@ -65,6 +71,7 @@ public class Usuario implements java.io.Serializable {
 		this.imagen = u.imagen;
 		this.datosUsuario = u.datosUsuario;
 		this.recetas = u.recetas;
+		this.recetas_seguidas = u.recetas_seguidas;
 	}
 
 	@Id
@@ -131,6 +138,18 @@ public class Usuario implements java.io.Serializable {
 
 	public void setRecetas(Set<Receta> recetas) {
 		this.recetas = recetas;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "recetas_seguidas_usuario", joinColumns = {
+			@JoinColumn(name = "usuario", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "receta", nullable = false, updatable = false) })
+	public Set<Receta> getRecetas_seguidas() {
+		return this.recetas_seguidas;
+	}
+
+	public void setRecetas_seguidas(Set<Receta> recetas_seguidas) {
+		this.recetas_seguidas = recetas_seguidas;
 	}
 
 }

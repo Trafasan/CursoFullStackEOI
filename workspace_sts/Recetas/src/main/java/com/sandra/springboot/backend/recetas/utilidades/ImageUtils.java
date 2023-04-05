@@ -19,7 +19,7 @@ public class ImageUtils {
 		String base64 = parts.length > 1 ? parts[1] : parts[0];
 		String fileName = System.currentTimeMillis() + ".png";
 		BufferedImage image;
-		byte[] imageByte = Base64.getMimeDecoder().decode(base64);
+		byte[] imageByte = Base64.getDecoder().decode(base64);
 		try {
 			Path pathDir = Paths.get("public", "images", dir);
 			if (!Files.exists(pathDir)) {
@@ -35,5 +35,16 @@ public class ImageUtils {
 		} catch (IllegalArgumentException e) {
 			return "";			
 		}
+	}
+	
+	public boolean deleteImage(String dir, String nombre) {
+		try {
+			Path path = Paths.get(dir, nombre);
+			Files.deleteIfExists(path);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}		
 	}
 }

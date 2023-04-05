@@ -32,7 +32,14 @@ public class RecetaServiceImpl implements IrecetaService {
 
 	@Override
 	public void delete(int id) {
-		recetaDao.deleteById(id);
+		Receta recetaActual = recetaDao.findById(id).orElse(null);
+		if(recetaActual!=null) {
+			if(recetaActual.getImagen()!=null) {
+				// borrado del fichero de la imagen
+				imageUtils.deleteImage("public", recetaActual.getImagen());
+			}
+			recetaDao.deleteById(id);
+		}
 	}
 
 	@Override

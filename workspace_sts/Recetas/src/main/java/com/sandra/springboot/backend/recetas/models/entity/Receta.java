@@ -4,7 +4,9 @@ package com.sandra.springboot.backend.recetas.models.entity;
 // Generated 25 mar 2023 14:09:12 by Hibernate Tools 4.3.6.Final
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,6 +17,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -29,7 +33,7 @@ public class Receta implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@JsonIgnoreProperties({"password","datosUsuario","recetas"})
+	@JsonIgnoreProperties({"password","datosUsuario","recetas","recetas_seguidas"})
 	private Usuario usuario;
 	private String nombre;
 	private String tipo;
@@ -39,6 +43,8 @@ public class Receta implements java.io.Serializable {
 	private int dificultad;
 	private String imagen;
 	private Date creacion;
+	@JsonIgnoreProperties({"recetas", "recetas_seguidas"})
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Receta() {
 	}
@@ -57,7 +63,7 @@ public class Receta implements java.io.Serializable {
 	}
 
 	public Receta(int id, Usuario usuario, String nombre, String tipo, List<String> necesidades, List<String> ingredientes,
-			List<String> elaboracion, int dificultad, String imagen, Date creacion) {
+			List<String> elaboracion, int dificultad, String imagen, Date creacion, Set<Usuario> usuarios) {
 		this.id = id;
 		this.usuario = usuario;
 		this.nombre = nombre;
@@ -68,6 +74,7 @@ public class Receta implements java.io.Serializable {
 		this.dificultad = dificultad;
 		this.imagen = imagen;
 		this.creacion = creacion;
+		this.usuarios = usuarios;
 	}
 
 	public Receta(Receta r) {
@@ -81,6 +88,7 @@ public class Receta implements java.io.Serializable {
 		this.dificultad = r.dificultad;
 		this.imagen = r.imagen;
 		this.creacion = r.creacion;
+		this.usuarios = r.usuarios;
 	}
 
 	@Id
@@ -175,6 +183,18 @@ public class Receta implements java.io.Serializable {
 
 	public void setCreacion(Date creacion) {
 		this.creacion = creacion;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "recetas_seguidas_usuario", joinColumns = {
+			@JoinColumn(name = "receta", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "usuario", nullable = false, updatable = false) })
+	public Set<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

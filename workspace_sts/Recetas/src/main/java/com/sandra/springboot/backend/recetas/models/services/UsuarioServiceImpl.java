@@ -8,12 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sandra.springboot.backend.recetas.models.dao.IusuarioDao;
 import com.sandra.springboot.backend.recetas.models.entity.Usuario;
+import com.sandra.springboot.backend.recetas.utilidades.ImageUtils;
 
 @Service
 public class UsuarioServiceImpl implements IusuarioService {
 	
 	@Autowired
 	private IusuarioDao usuarioDao;
+	
+	private final ImageUtils imageUtils = new ImageUtils();
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -29,7 +32,14 @@ public class UsuarioServiceImpl implements IusuarioService {
 
 	@Override
 	public void delete(int id) {
+		Usuario usuarioActual = usuarioDao.findById(id).orElse(null);
+		if(usuarioActual!=null) {
+			if(usuarioActual.getImagen()!=null) {
+				// borrado del fichero de la imagen
+				imageUtils.deleteImage("public", usuarioActual.getImagen());
+			}
 		usuarioDao.deleteById(id);
+		}
 	}
 
 	@Override

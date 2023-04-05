@@ -111,6 +111,10 @@ public class UsuarioRestController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		try {
+			if(usuario.getImagen()!=null) {
+				String ruta = imageUtils.saveImageBase64("recetas", usuario.getImagen());
+				usuario.setImagen(ruta);
+			}
 			usuarioNew = usuarioService.save(usuario);
 			if(usuario.getImagen()!=null)
 				usuarioNew.setImagen(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/" + usuarioNew.getImagen());

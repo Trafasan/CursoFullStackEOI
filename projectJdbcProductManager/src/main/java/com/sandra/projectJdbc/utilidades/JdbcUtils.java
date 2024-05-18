@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class JdbcUtils {
-	final static String URI = "jdbc:mysql://localhost:3306/product_manager";
+	final static String URI = "jdbc:mysql://localhost:3306/product-manager";
 	final static String USER = "root";
 	final static String PASSWORD = "";
 	

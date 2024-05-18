@@ -52,9 +52,7 @@ public class App {
 	 */
 		
     public static void main(String[] args){
-    	final String nombreFicheroCaixa = "caixa.txt";
-		final String nombreFicheroSabadell = "sabadell.txt";
-		final String nombreFicheroSantander = "santander.txt";
+    	final String nombreFicheroCaixa = "caixa.txt", nombreFicheroSabadell = "sabadell.txt", nombreFicheroSantander = "santander.txt";
     	List<CuentaCaixa> cuentasCaixa = CuentaCaixa.getListCuentaCaixa(nombreFicheroCaixa);
     	List<CuentaSabadell> cuentasSabadell = CuentaSabadell.getListCuentaSabadell(nombreFicheroSabadell);
     	List<CuentaSantander> cuentasSantander = CuentaSantander.getListCuentaSantander(nombreFicheroSantander);

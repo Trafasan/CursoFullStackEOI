@@ -29,7 +29,6 @@ public class Utils {
 	
 	private static int numeroAleatorio(List<Cuenta> cuentasBancos) {
 		return new Random().nextInt(cuentasBancos.size());
-		
 	}
 	public static void borrarCuenta(List<Cuenta> cuentasBancos) {
 		cuentasBancos.remove(numeroAleatorio(cuentasBancos));
